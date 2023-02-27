@@ -9,23 +9,41 @@
 /* Begin PBXBuildFile section */
 		74AFAB8329ACAAE500413BD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */; };
 		74AFAB8529ACAAE500413BD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */; };
-		74AFAB8729ACAAE500413BD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8629ACAAE500413BD2 /* ViewController.swift */; };
-		74AFAB8A29ACAAE500413BD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AFAB8829ACAAE500413BD2 /* Main.storyboard */; };
 		74AFAB8D29ACAAE500413BD2 /* LatteGames.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */; };
 		74AFAB8F29ACAAE500413BD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */; };
 		74AFAB9229ACAAE500413BD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AFAB9029ACAAE500413BD2 /* LaunchScreen.storyboard */; };
+		74AFAB9D29ACABAC00413BD2 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB9C29ACABAC00413BD2 /* TabbarController.swift */; };
+		74AFAB9F29ACABE700413BD2 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB9E29ACABE700413BD2 /* Store.swift */; };
+		74AFABA229ACABF800413BD2 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABA129ACABF800413BD2 /* Server.swift */; };
+		74AFABA529ACBC4200413BD2 /* GamesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABA429ACBC4200413BD2 /* GamesVC.swift */; };
+		74AFABA729ACBC4800413BD2 /* GamesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABA629ACBC4800413BD2 /* GamesVM.swift */; };
+		74AFABAB29ACBC5A00413BD2 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABAA29ACBC5A00413BD2 /* FavoritesVC.swift */; };
+		74AFABAD29ACBC5F00413BD2 /* FavoritesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABAC29ACBC5F00413BD2 /* FavoritesVM.swift */; };
+		74AFABAF29ACBC7100413BD2 /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABAE29ACBC7100413BD2 /* SearchResultVC.swift */; };
+		74AFABB129ACBC7A00413BD2 /* SearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABB029ACBC7A00413BD2 /* SearchResultVM.swift */; };
+		74AFABB429ACBC9300413BD2 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABB329ACBC9300413BD2 /* DetailVC.swift */; };
+		74AFABB629ACBC9700413BD2 /* DetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFABB529ACBC9700413BD2 /* DetailVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		74AFAB7F29ACAAE500413BD2 /* LatteGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LatteGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		74AFAB8629ACAAE500413BD2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		74AFAB8929ACAAE500413BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74AFAB8C29ACAAE500413BD2 /* LatteGames.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LatteGames.xcdatamodel; sourceTree = "<group>"; };
 		74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74AFAB9129ACAAE500413BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74AFAB9329ACAAE500413BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74AFAB9C29ACABAC00413BD2 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
+		74AFAB9E29ACABE700413BD2 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		74AFABA129ACABF800413BD2 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		74AFABA429ACBC4200413BD2 /* GamesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesVC.swift; sourceTree = "<group>"; };
+		74AFABA629ACBC4800413BD2 /* GamesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesVM.swift; sourceTree = "<group>"; };
+		74AFABAA29ACBC5A00413BD2 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		74AFABAC29ACBC5F00413BD2 /* FavoritesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVM.swift; sourceTree = "<group>"; };
+		74AFABAE29ACBC7100413BD2 /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
+		74AFABB029ACBC7A00413BD2 /* SearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVM.swift; sourceTree = "<group>"; };
+		74AFABB329ACBC9300413BD2 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		74AFABB529ACBC9700413BD2 /* DetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +76,97 @@
 		74AFAB8129ACAAE500413BD2 /* LatteGames */ = {
 			isa = PBXGroup;
 			children = (
-				74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */,
-				74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */,
-				74AFAB8629ACAAE500413BD2 /* ViewController.swift */,
-				74AFAB8829ACAAE500413BD2 /* Main.storyboard */,
-				74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */,
-				74AFAB9029ACAAE500413BD2 /* LaunchScreen.storyboard */,
+				74AFABA329ACBC2400413BD2 /* Views */,
+				74AFABA029ACABF300413BD2 /* Networking */,
+				74AFAB9B29ACAB9500413BD2 /* Controllers */,
+				74AFAB9929ACAB6800413BD2 /* Support */,
 				74AFAB9329ACAAE500413BD2 /* Info.plist */,
-				74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */,
+				74AFAB9A29ACAB8000413BD2 /* Persistence */,
 			);
 			path = LatteGames;
+			sourceTree = "<group>";
+		};
+		74AFAB9929ACAB6800413BD2 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */,
+				74AFAB9029ACAAE500413BD2 /* LaunchScreen.storyboard */,
+				74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */,
+				74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		74AFAB9A29ACAB8000413BD2 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */,
+				74AFAB9E29ACABE700413BD2 /* Store.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		74AFAB9B29ACAB9500413BD2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				74AFAB9C29ACABAC00413BD2 /* TabbarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		74AFABA029ACABF300413BD2 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABA129ACABF800413BD2 /* Server.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		74AFABA329ACBC2400413BD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABA929ACBC5300413BD2 /* Favorites */,
+				74AFABA829ACBC4B00413BD2 /* Games */,
+				74AFABB229ACBC7D00413BD2 /* Search */,
+				74AFABB729ACBC9B00413BD2 /* Detail */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		74AFABA829ACBC4B00413BD2 /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABA429ACBC4200413BD2 /* GamesVC.swift */,
+				74AFABA629ACBC4800413BD2 /* GamesVM.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		74AFABA929ACBC5300413BD2 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABAA29ACBC5A00413BD2 /* FavoritesVC.swift */,
+				74AFABAC29ACBC5F00413BD2 /* FavoritesVM.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		74AFABB229ACBC7D00413BD2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABAE29ACBC7100413BD2 /* SearchResultVC.swift */,
+				74AFABB029ACBC7A00413BD2 /* SearchResultVM.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		74AFABB729ACBC9B00413BD2 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				74AFABB329ACBC9300413BD2 /* DetailVC.swift */,
+				74AFABB529ACBC9700413BD2 /* DetailVM.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +229,6 @@
 			files = (
 				74AFAB9229ACAAE500413BD2 /* LaunchScreen.storyboard in Resources */,
 				74AFAB8F29ACAAE500413BD2 /* Assets.xcassets in Resources */,
-				74AFAB8A29ACAAE500413BD2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +239,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74AFAB8729ACAAE500413BD2 /* ViewController.swift in Sources */,
+				74AFABAB29ACBC5A00413BD2 /* FavoritesVC.swift in Sources */,
+				74AFABA229ACABF800413BD2 /* Server.swift in Sources */,
+				74AFABAD29ACBC5F00413BD2 /* FavoritesVM.swift in Sources */,
+				74AFABB629ACBC9700413BD2 /* DetailVM.swift in Sources */,
 				74AFAB8329ACAAE500413BD2 /* AppDelegate.swift in Sources */,
 				74AFAB8D29ACAAE500413BD2 /* LatteGames.xcdatamodeld in Sources */,
+				74AFABA729ACBC4800413BD2 /* GamesVM.swift in Sources */,
+				74AFAB9F29ACABE700413BD2 /* Store.swift in Sources */,
+				74AFABB129ACBC7A00413BD2 /* SearchResultVM.swift in Sources */,
+				74AFAB9D29ACABAC00413BD2 /* TabbarController.swift in Sources */,
+				74AFABAF29ACBC7100413BD2 /* SearchResultVC.swift in Sources */,
+				74AFABA529ACBC4200413BD2 /* GamesVC.swift in Sources */,
 				74AFAB8529ACAAE500413BD2 /* SceneDelegate.swift in Sources */,
+				74AFABB429ACBC9300413BD2 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		74AFAB8829ACAAE500413BD2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				74AFAB8929ACAAE500413BD2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		74AFAB9029ACAAE500413BD2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -220,7 +320,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,8 +397,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +407,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = comMuhammed.LatteGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -325,8 +429,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,9 +439,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = comMuhammed.LatteGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
