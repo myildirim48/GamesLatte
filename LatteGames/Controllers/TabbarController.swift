@@ -24,7 +24,8 @@ class TabbarController: UITabBarController {
         let tabbarApperance = UITabBar.appearance()
         tabbarApperance.tintColor = .systemRed
         tabbarApperance.backgroundColor = .systemGray6
-        viewControllers = []
+        viewControllers = [createTabbarItem(view: GamesVC(environemnt: environment, layout: UICollectionViewLayout()), title: "Games", itemImage: "gamecontroller"),
+        createTabbarItem(view: FavoritesVC(), title: "Favorites", itemImage: "suit.heart")]
     }
     
     
