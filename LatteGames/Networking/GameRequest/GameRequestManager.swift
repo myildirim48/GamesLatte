@@ -7,7 +7,7 @@
 
 import Foundation
 protocol GameRequestManagerDelegate:NSObject {
-    func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [GameDataModelResult])
+    func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [DisplayableResource])
     func requestManagerDidReceiveError(userFriendlyError: UserFriendlyError)
 }
 class GameRequestManager {
@@ -37,7 +37,8 @@ class GameRequestManager {
     }
     
     func requestAll(){
-        
+        fetchAllTime()
+        fetchMultiTags()
     }
     
     private func fetchAllTime(){
@@ -45,7 +46,8 @@ class GameRequestManager {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.results)
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.results.toDisplayable(type: .alltimeBest))
+                print(response.results.toDisplayable(type: .alltimeBest))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -55,12 +57,14 @@ class GameRequestManager {
     }
     
     private func fetchMultiTags(){
-        let multiQuery : [Query] = [.tags("Multiplayer")]
+        let multiQuery : [Query] = [.tags("multiplayer")]
         multiplayerRequestLoader.load(data: multiQuery) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.results)
+                
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.results.toDisplayable(type: .alltimeBestMultiplayer))
+                print(response.results.toDisplayable(type: .alltimeBestMultiplayer))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))

@@ -17,7 +17,7 @@ class Server {
     
     private var auth: Auth
     
-    init(baseURL: URL = URL(string: "https://gateway.marvel.com")!) {
+    init(baseURL: URL = URL(string: "https://api.rawg.io")!) {
         self.baseURL = baseURL
         self.auth = Auth()
     }

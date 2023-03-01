@@ -7,14 +7,16 @@
 
 import Foundation
 protocol Displayable {
-    func convert(type: Self) -> DisplayableResource
+    func convert(type: GameModelType) -> DisplayableResource
+}
+
+
+enum GameModelType:Codable {
+    case alltimeBest, metaCritic, alltimeBestMultiplayer, lastyearPopular, last30DaysReleased
 }
 
 struct DisplayableResource {
-    
-    enum GameModelType {
-        case alltimeBest, metaCritic, alltimeBestMultiplayer, lastyearPopular, last30DaysReleased
-    }
+ 
     #warning("????????")
     
     let type : GameModelType
@@ -22,8 +24,10 @@ struct DisplayableResource {
     let released: String?
     let backgroundImage: String?
     let metacritic: Int?
+    let rating: Double?
     let id: Int
     let genres: [Genre]?
+    let suggestionsCount: Int?
 }
 
 extension DisplayableResource:Hashable {
