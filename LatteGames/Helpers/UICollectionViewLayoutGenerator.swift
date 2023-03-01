@@ -91,14 +91,14 @@ struct UICollectionViewLayoutGenerator {
     //MARK: - Resources layout
     
     enum ResourceSection: Int, CaseIterable {
-        case alltimeBest, alltimeBestMultiplayer, events, series
+        case alltimeBest, alltimeBestMultiplayer, lastyearPopular, lastmonthReleased
         
         var sectionTitle: String {
             switch self {
                 case .alltimeBest: return "All Time Best's "
                 case .alltimeBestMultiplayer: return "All Time Multiplayers Best"
-                case .events: return "Events"
-                case .series: return "Series"
+                case .lastyearPopular: return "Popular in 2022"
+            case .lastmonthReleased: return "Released in last month"
             }
         }
         
@@ -107,7 +107,7 @@ struct UICollectionViewLayoutGenerator {
             let narrowMode = width < 420
             
             switch self {
-                case .alltimeBest, .alltimeBestMultiplayer, .events, .series:
+            case .alltimeBest, .alltimeBestMultiplayer, .lastyearPopular, .lastmonthReleased:
                     return wideMode ? 3 : narrowMode ? 1 : 2
             }
         }
@@ -115,8 +115,8 @@ struct UICollectionViewLayoutGenerator {
         var groupSize: (width: NSCollectionLayoutDimension, height: NSCollectionLayoutDimension) {
             switch self {
                 case .alltimeBest: return (width: .absolute(350), height: .absolute(150))
-                case .events: return (width: .fractionalWidth(0.40), height: .fractionalHeight(0.18))
-                case .series: return (width: .fractionalWidth(0.40), height: .fractionalHeight(0.18))
+                case .lastyearPopular: return (width: .fractionalWidth(0.90), height: .fractionalHeight(0.27))
+            case .lastmonthReleased: return (width: .fractionalWidth(0.85), height: .fractionalHeight(0.20))
                 case .alltimeBestMultiplayer: return (width: .fractionalWidth(0.90), height: .fractionalHeight(0.18))
             }
         }

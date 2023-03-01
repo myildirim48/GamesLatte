@@ -15,11 +15,11 @@ class GameRequestManager {
     let server: Server!
     weak var delegate :GameRequestManagerDelegate?
     
-    var alltimeRequest : GameRequest<GameDataModelResult>!
-    var multiplayerRequest : GameRequest<GameDataModelResult>!
+    var gamesRequest : GameRequest<GameDataModelResult>!
+//    var multiplayerRequest : GameRequest<GameDataModelResult>!
     
-    var alltimeRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
-    var multiplayerRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
+    var gamesRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
+//    var multiplayerRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
     
     
     init(server: Server,delegate: GameRequestManagerDelegate) {
@@ -28,26 +28,25 @@ class GameRequestManager {
     }
 
     func configureRequests() {
-        alltimeRequest = try? server.gameAllRequest()
-        multiplayerRequest = try? server.gameAllRequest()
-        
-        alltimeRequestLoader = RequestLoader(request: alltimeRequest)
-        multiplayerRequestLoader = RequestLoader(request: multiplayerRequest)
-        
+        gamesRequest = try? server.gameAllRequest()
+//        multiplayerRequest = try? server.gameAllRequest()
+        gamesRequestLoader = RequestLoader(request: gamesRequest)
+//        multiplayerRequestLoader = RequestLoader(request: multiplayerRequest)
     }
     
     func requestAll(){
         fetchAllTime()
         fetchMultiTags()
+        fetchBetweenDates(dateFrom: "2022-01-01", dateTo: "2022-12-31", sectionFor: .lastyearPopular, displayableFor: .lastyearPopular)
+        fetchBetweenDates(dateFrom: "2023-01-01", dateTo: Date().dateToString(dateFormat: "yyyy-MM-dd"), sectionFor: .lastmonthReleased, displayableFor: .last30DaysReleased)
     }
     
     private func fetchAllTime(){
-        alltimeRequestLoader.load(data: []) { [weak self] result in
+        gamesRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.results.toDisplayable(type: .alltimeBest))
-                print(response.results.toDisplayable(type: .alltimeBest))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -57,17 +56,32 @@ class GameRequestManager {
     }
     
     private func fetchMultiTags(){
-        let multiQuery : [Query] = [.tags("multiplayer")]
-        multiplayerRequestLoader.load(data: multiQuery) { [weak self] result in
+        let multiQuery : [Query] = [.tags("multiplayer"),
+                                    .ordering("ratings_count")]
+        gamesRequestLoader.load(data: multiQuery) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
                 
                 self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.results.toDisplayable(type: .alltimeBestMultiplayer))
-                print(response.results.toDisplayable(type: .alltimeBestMultiplayer))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
+                return
+            }
+        }
+    }
+    
+    private func fetchBetweenDates(dateFrom: String, dateTo:String, sectionFor: GamesDataSource.Section, displayableFor: GameModelType) {
+        let datesQuery : [Query] = [.ordering("rating_counts"),
+                                    .dates(betweenDates: dateFrom, dateTo)]
+        gamesRequestLoader.load(data: datesQuery) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.delegate?.requestManagerDidRecieveData(for: sectionFor, data: response.results.toDisplayable(type: displayableFor))
+                return
+            case .failure(let error):
+                self?.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
                 return
             }
         }

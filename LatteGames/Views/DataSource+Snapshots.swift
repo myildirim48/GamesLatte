@@ -12,8 +12,7 @@ typealias GamesSnapshot = NSDiffableDataSourceSnapshot<GamesDataSource.Section, 
 class GamesDataSource: UICollectionViewDiffableDataSource<GamesDataSource.Section, DisplayableResource> {
     
     enum Section:CaseIterable {
-        case alltimeBest, alltimeBestMultiplayer
-//        case alltimeBest, metaCritic, alltimeBestMultiplayer, lastyearPopular, last30DaysReleased
+        case alltimeBest, alltimeBestMultiplayer,lastyearPopular,lastmonthReleased
     }
     
 }

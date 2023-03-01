@@ -27,18 +27,10 @@ class Server {
         return parameters
     }
     
-//    private func fetchByTagsQuery(tag:String) -> [Query] {
-//        var parameter = authQueryItems()
-//        parameter.append(.tags(tag))
-//        return parameter
-//    }
-//    
-    
-    
     //MARK: - Game Requests
     
     /// Games Request for AllTimeBest
-    /// - Parameter : All games
+    /// - Parameter : All games by rating
     /// - Returns: Authenticated request with matching Character type
     func gameAllRequest() throws -> GameRequest<GameDataModelResult>{
         return GameRequest(baseURL, path: .base, auth: authQueryItems())
@@ -52,15 +44,11 @@ class Server {
 //    }
     
     
-    //TODO -> FOR OTHER 4 AND DETAILS
 }
 extension Server {
-    
     struct Auth {
         func baseKey() -> Query {
             return .apikey()
         }
-
     }
-
 }

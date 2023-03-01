@@ -67,9 +67,13 @@ class GameCell: UICollectionViewCell {
         ratingLabel.text = "\(gameData.rating ?? 0.0)/5"
         releasedLabel.text = gameData.released?.transformStringToDate().dateToString()
         suggestionLabel.text = String(gameData.suggestionsCount ?? 0)
-        Task {
-            imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
+        
+        DispatchQueue.main.async {
+            Task {
+                self.imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
+            }
         }
+
        
     }
     

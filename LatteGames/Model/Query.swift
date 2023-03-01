@@ -30,4 +30,8 @@ extension Query {
     static func search(_ value: String) -> Query {
         Query(name: "search", value: value)
     }
+    
+    static func dates(betweenDates dateFrom: String, _ dateTo: String) -> Query{
+        Query(name: "dates", value: dateFrom + "," + dateTo)
+    }
 }
