@@ -8,6 +8,7 @@
 import Foundation
 
 struct NetworkResponse<T: Codable>: Codable {
-    let count: Int
-    let results: [T]
+    let count: Int?
+    let results: [T]?
+    let detail: String?
 }

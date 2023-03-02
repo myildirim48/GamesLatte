@@ -19,7 +19,7 @@ class GamesVM: NSObject {
     var dataSource: GamesDataSource! = nil
     var gameRequestManager: GameRequestManager?
 
-    weak var delegate: GamesViewModelDelegate?
+    weak var errorHandler: GamesViewModelDelegate?
     
     init(environment: Environment!) {
         self.environment = environment
@@ -53,6 +53,6 @@ extension GamesVM: GameRequestManagerDelegate {
     }
     
     func requestManagerDidReceiveError(userFriendlyError: UserFriendlyError) {
-        delegate?.viewModelDidReceiveError(error: userFriendlyError)
+        errorHandler?.viewModelDidReceiveError(error: userFriendlyError)
     }
 }

@@ -34,10 +34,10 @@ class GamesVC: UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         
-        gamesViewModel.delegate = self
+        
         let dataSource = configureDataSource()
         gamesViewModel.dataSource = dataSource
-        
+        gamesViewModel.errorHandler = self
         
     }
     

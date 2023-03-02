@@ -14,6 +14,7 @@ protocol GameCellDelegate: NSObject {
 class GameCell: UICollectionViewCell {
     static let reuseId = "game-cell-identifier"
     
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     let imageView = UIImageView()
     let nameLabel = LatteLabel(textAligment: .left, font: Theme.fonts.titleFont)
     let favoritesButton = FavoriteButton(frame: .zero)
@@ -68,21 +69,26 @@ class GameCell: UICollectionViewCell {
         releasedLabel.text = gameData.released?.transformStringToDate().dateToString()
         suggestionLabel.text = String(gameData.suggestionsCount ?? 0)
         
+        activityIndicator.startAnimating()
         DispatchQueue.main.async {
             Task {
                 self.imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
+
             }
+            self.activityIndicator.stopAnimating()
         }
 
        
     }
     
     private func configure() {
-        addSubviews(imageView,nameLabel,ratingLabel,ratingLabelImage,genresLabel,favoritesButton,releasedImage,releasedLabel,suggestionImage,suggestionLabel)
+        addSubviews(imageView,nameLabel,ratingLabel,ratingLabelImage,genresLabel,favoritesButton,releasedImage,releasedLabel,suggestionImage,suggestionLabel,activityIndicator)
         
         backgroundColor = .systemGray6
         layer.cornerRadius = 15
         layer.masksToBounds = true
+        
+        activityIndicator.hidesWhenStopped = true
         
         ratingLabelImage.image = UIImage(systemName: "star.fill")
         ratingLabelImage.tintColor = .systemYellow
@@ -103,6 +109,7 @@ class GameCell: UICollectionViewCell {
         releasedLabel.translatesAutoresizingMaskIntoConstraints = false
         suggestionLabel.translatesAutoresizingMaskIntoConstraints = false
         suggestionImage.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         favoritesButton.addTarget(self, action: #selector(self.favoritesButtonTapped(_:)), for: .touchUpInside)
         
@@ -126,7 +133,6 @@ class GameCell: UICollectionViewCell {
             genresLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             genresLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: innerSpace),
             
-//            ratingLabel.topAnchor.constraint(equalTo: genresLabel.bottomAnchor,constant: innerSpace),
             ratingLabel.leadingAnchor.constraint(equalTo: ratingLabelImage.trailingAnchor,constant: innerSpace/2),
             ratingLabel.widthAnchor.constraint(equalToConstant: 50),
 
@@ -150,6 +156,9 @@ class GameCell: UICollectionViewCell {
             
             suggestionLabel.centerYAnchor.constraint(equalTo: suggestionImage.centerYAnchor),
             suggestionLabel.leadingAnchor.constraint(equalTo: suggestionImage.trailingAnchor,constant: innerSpace/2),
+            
+            activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor)
             
         ])
         

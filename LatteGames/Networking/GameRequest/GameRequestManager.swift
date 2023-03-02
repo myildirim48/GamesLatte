@@ -46,7 +46,8 @@ class GameRequestManager {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.results.toDisplayable(type: .alltimeBest))
+                guard let response = response.results else { return }
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.toDisplayable(type: .alltimeBest))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -62,8 +63,8 @@ class GameRequestManager {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.results.toDisplayable(type: .alltimeBestMultiplayer))
+                guard let response = response.results else { return }
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.toDisplayable(type: .alltimeBestMultiplayer))
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -78,7 +79,8 @@ class GameRequestManager {
         gamesRequestLoader.load(data: datesQuery) { [weak self] result in
             switch result {
             case .success(let response):
-                self?.delegate?.requestManagerDidRecieveData(for: sectionFor, data: response.results.toDisplayable(type: displayableFor))
+                guard let response = response.results else { return }
+                self?.delegate?.requestManagerDidRecieveData(for: sectionFor, data: response.toDisplayable(type: displayableFor))
                 return
             case .failure(let error):
                 self?.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))

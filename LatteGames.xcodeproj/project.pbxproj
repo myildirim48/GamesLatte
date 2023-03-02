@@ -50,6 +50,7 @@
 		74B24F1329AE574E008704F6 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1229AE574E008704F6 /* UIViewController+Ext.swift */; };
 		74B24F1529AF7B51008704F6 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1429AF7B51008704F6 /* String+Ext.swift */; };
 		74B24F1729AF7C2C008704F6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1629AF7C2C008704F6 /* Date+Ext.swift */; };
+		74B24F1A29B143F2008704F6 /* LatteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1929B143F2008704F6 /* LatteImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		74B24F1229AE574E008704F6 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		74B24F1429AF7B51008704F6 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		74B24F1629AF7C2C008704F6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		74B24F1929B143F2008704F6 /* LatteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatteImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +300,7 @@
 		74B24EFB29ADF9C9008704F6 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				74B24F1829B143E7008704F6 /* IImageView */,
 				74B24F0B29AE4607008704F6 /* ResuableViews */,
 				74B24F0129ADFCF9008704F6 /* Labels */,
 				74B24EFE29ADFB75008704F6 /* Cells */,
@@ -338,6 +341,14 @@
 				74B24F1029AE4636008704F6 /* TitleReusableView.swift */,
 			);
 			path = ResuableViews;
+			sourceTree = "<group>";
+		};
+		74B24F1829B143E7008704F6 /* IImageView */ = {
+			isa = PBXGroup;
+			children = (
+				74B24F1929B143F2008704F6 /* LatteImageView.swift */,
+			);
+			path = IImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +434,7 @@
 				74AFABAD29ACBC5F00413BD2 /* FavoritesVM.swift in Sources */,
 				74B24EE729ACF001008704F6 /* SecretKey.swift in Sources */,
 				74B24F1729AF7C2C008704F6 /* Date+Ext.swift in Sources */,
+				74B24F1A29B143F2008704F6 /* LatteImageView.swift in Sources */,
 				74AFABB629ACBC9700413BD2 /* DetailVM.swift in Sources */,
 				74B24EF829ACF70B008704F6 /* UserFriendlyError.swift in Sources */,
 				74B24F1329AE574E008704F6 /* UIViewController+Ext.swift in Sources */,

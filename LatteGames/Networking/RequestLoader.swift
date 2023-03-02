@@ -46,10 +46,10 @@ class RequestLoader<T: Request>{
                     onComplete(.failure(RequestLoaderError.Network(error)))
                     return
                 }
-                
                 let status = response.statusCode
                 guard self.expected200to300(status) else {
                     onComplete(.failure(RequestLoaderError.ServerSide(ServerSideError(statusCode: status, response: response))))
+                    
                     return
                 }
                 

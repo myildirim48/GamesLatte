@@ -34,4 +34,7 @@ extension Query {
     static func dates(betweenDates dateFrom: String, _ dateTo: String) -> Query{
         Query(name: "dates", value: dateFrom + "," + dateTo)
     }
+    static func page(page:String) -> Query {
+        Query(name: "page", value: page)
+    }
 }
