@@ -17,7 +17,7 @@ class GamesVM: NSObject {
     private var state: State = .ready
 
     var dataSource: GamesDataSource! = nil
-    var gameRequestManager: GameRequestManager?
+    var gameRequestManager: GameListRequestManager?
 
     weak var errorHandler: GamesViewModelDelegate?
     
@@ -28,7 +28,7 @@ class GamesVM: NSObject {
     }
     
     private func configure() {
-        gameRequestManager = GameRequestManager(server: environment.server, delegate: self)
+        gameRequestManager = GameListRequestManager(server: environment.server, delegate: self)
         gameRequestManager?.configureRequests()
         gameRequestManager?.requestAll()
     }
@@ -46,7 +46,7 @@ class GamesVM: NSObject {
     
 }
 
-extension GamesVM: GameRequestManagerDelegate {
+extension GamesVM: GameListRequestManagerDelegate {
     func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [DisplayableResource]) {
         applyDatasourceChange(section: section, resources: data)
 

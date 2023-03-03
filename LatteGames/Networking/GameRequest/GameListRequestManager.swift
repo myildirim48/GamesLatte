@@ -6,23 +6,20 @@
 //
 
 import Foundation
-protocol GameRequestManagerDelegate:NSObject {
+protocol GameListRequestManagerDelegate:NSObject {
     func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [DisplayableResource])
     func requestManagerDidReceiveError(userFriendlyError: UserFriendlyError)
 }
-class GameRequestManager {
+class GameListRequestManager {
     
     let server: Server!
-    weak var delegate :GameRequestManagerDelegate?
+    weak var delegate :GameListRequestManagerDelegate?
     
     var gamesRequest : GameRequest<GameDataModelResult>!
-//    var multiplayerRequest : GameRequest<GameDataModelResult>!
     
     var gamesRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
-//    var multiplayerRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
     
-    
-    init(server: Server,delegate: GameRequestManagerDelegate) {
+    init(server: Server,delegate: GameListRequestManagerDelegate) {
         self.server = server
         self.delegate = delegate
     }

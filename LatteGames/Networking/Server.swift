@@ -29,19 +29,19 @@ class Server {
     
     //MARK: - Game Requests
     
-    /// Games Request for AllTimeBest
+    /// Games Request for Games
     /// - Parameter : All games by rating
-    /// - Returns: Authenticated request with matching Character type
+    /// - Returns: Authenticated request with matching GameDataModelResult type
     func gameAllRequest() throws -> GameRequest<GameDataModelResult>{
         return GameRequest(baseURL, path: .base, auth: authQueryItems())
     }
     
-    /// Games Request for AllTimeBest
-    /// - Parameter : All games
-    /// - Returns: Authenticated request with matching Character type
-//    func requestbyTags(tag:String) throws -> GameRequest<GameDataModelResult>{
-//        return GameRequest(baseURL, path: .base, auth: fetchByTagsQuery(tag: tag))
-//    }
+    /// Games Request for Game Detail
+    /// - Parameter id: Game id for details
+    /// - Returns: Authenticated request with matching GameDetail type
+    func fetchGameDetail(id: Int) throws -> GameRequest<GameDetail>{
+        return GameRequest(baseURL, path: .detail(String(id)), auth: authQueryItems())
+    }
     
     
 }

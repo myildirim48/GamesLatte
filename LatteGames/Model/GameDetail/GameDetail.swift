@@ -17,11 +17,15 @@ struct GameDetail: Codable {
     let publishers: [Publisher]
     let genres: [Genre]
     let parentPlatforms: [ParentPlatform]
+    let backgroundImage: String?
+    let rating: Double?
+    let ratings: [Ratings]?
     
     enum CodingKeys: String, CodingKey {
-        case name,metacritic,released,website,publishers,genres,id
+        case name,metacritic,released,website,publishers,genres,id,rating,ratings
         case descriptionRaw = "description_raw"
         case parentPlatforms = "parent_platforms"
+        case backgroundImage = "background_image"
     }
 }
 struct ParentPlatform: Codable {
@@ -38,4 +42,16 @@ struct Genre: Codable,Hashable {
     
     var id: Int?
     var name: String?
+}
+
+struct Ratings: Codable {
+    let title: Title?
+    let percent: Double?
+}
+
+enum Title: String, Codable {
+    case exceptional = "exceptional"
+    case meh = "meh"
+    case recommended = "recommended"
+    case skip = "skip"
 }
