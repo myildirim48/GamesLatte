@@ -15,9 +15,9 @@ class GameListRequestManager {
     let server: Server!
     weak var delegate :GameListRequestManagerDelegate?
     
-    var gamesRequest : GameRequest<GameDataModelResult>!
+    var gamesRequest : GameRequest<NetworkResponse<GameDataModelResult>>!
     
-    var gamesRequestLoader : RequestLoader<GameRequest<GameDataModelResult>>!
+    var gamesRequestLoader : RequestLoader<GameRequest<NetworkResponse<GameDataModelResult>>>!
     
     init(server: Server,delegate: GameListRequestManagerDelegate) {
         self.server = server
@@ -39,6 +39,8 @@ class GameListRequestManager {
     }
     
     private func fetchAllTime(){
+        
+        
         gamesRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -73,6 +75,7 @@ class GameListRequestManager {
     private func fetchBetweenDates(dateFrom: String, dateTo:String, sectionFor: GamesDataSource.Section, displayableFor: GameModelType) {
         let datesQuery : [Query] = [.ordering("rating_counts"),
                                     .dates(betweenDates: dateFrom, dateTo)]
+        
         gamesRequestLoader.load(data: datesQuery) { [weak self] result in
             switch result {
             case .success(let response):

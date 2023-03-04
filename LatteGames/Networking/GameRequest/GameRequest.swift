@@ -15,7 +15,7 @@ protocol Request {
 
 struct GameRequest<A:Codable>: Request{
     
-    typealias ResponseDataType = NetworkResponse<A>
+    typealias ResponseDataType = A
     
     enum Path {
         case base
@@ -24,8 +24,13 @@ struct GameRequest<A:Codable>: Request{
         
         var string: String {
             switch self {
-            case .base: return "/api/games"
-            case .detail(let id): return "/api/games/\(id)"
+            case .base:
+                return "/api/games"
+            case .detail(let id):
+                #warning("asdsad")
+                typealias ResponseDataType = GameDetail
+                return "/api/games/\(id)"
+                
             case .screenShots(let id): return "/api/games/\(id)/screenshots"
             }
         }

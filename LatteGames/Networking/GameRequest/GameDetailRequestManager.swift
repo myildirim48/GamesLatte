@@ -14,6 +14,7 @@ protocol GameDetailRequestManagerDelegate: NSObject {
 
 class GameDetailRequestManager {
     let server: Server!
+    
     weak var delegate: GameDetailRequestManagerDelegate?
     
     var gameDetailRequest: GameRequest<GameDetail>!
@@ -31,17 +32,38 @@ class GameDetailRequestManager {
         gameDetailRequestLoader = RequestLoader(request: gameDetailRequest)
     }
     
+    func fetchAllDetails(){
+        fetchGameDetails()
+    }
+    
     private func fetchGameDetails() {
+        
         gameDetailRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
-            case .success(let response):
-                guard let response = response.results else { return }
-                self?.delegate?.gameDetailRequestManagerDidRecieveData(for: response)
+            case .success(let success):
+                print(success)
+                DispatchQueue.main.async {
+                    self.delegate?.gameDetailRequestManagerDidRecieveData(for: success)
+                }
+
+                return
             case .failure(let error):
-                self.delegate?.gameDetailRequestManagerDidRecieveError(userFriendlyError: .userFriendlyError(<#T##error: RequestLoaderError##RequestLoaderError#>))
+                self.delegate?.gameDetailRequestManagerDidRecieveError(userFriendlyError: .userFriendlyError(error))
+                return
             }
         }
+        
+//        gameDetailRequestLoader.load(data: []) { [weak self] result in
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case .success(let response):
+//                guard let response = response.results else { return }
+//                self?.delegate?.gameDetailRequestManagerDidRecieveData(for: response)
+//            case .failure(let error):
+//                self.delegate?.gameDetailRequestManagerDidRecieveError(userFriendlyError: .userFriendlyError(error))
+//            }
+//        }
     }
 }

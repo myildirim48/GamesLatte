@@ -15,7 +15,7 @@ class GameCell: UICollectionViewCell {
     static let reuseId = "game-cell-identifier"
     
     let activityIndicator = UIActivityIndicatorView(style: .large)
-    let imageView = UIImageView()
+    let imageView = LatteImageView(frame: .zero)
     let nameLabel = LatteLabel(textAligment: .left, font: Theme.fonts.titleFont)
     let favoritesButton = FavoriteButton(frame: .zero)
     let genresLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont)
@@ -103,7 +103,7 @@ class GameCell: UICollectionViewCell {
         releasedLabel.textColor = .secondaryLabel
         suggestionLabel.textColor = .secondaryLabel
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
         ratingLabelImage.translatesAutoresizingMaskIntoConstraints = false
         releasedImage.translatesAutoresizingMaskIntoConstraints = false
         releasedLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -113,8 +113,8 @@ class GameCell: UICollectionViewCell {
         
         favoritesButton.addTarget(self, action: #selector(self.favoritesButtonTapped(_:)), for: .touchUpInside)
         
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
         
         let innerSpace = CGFloat(8)
         let outerSpace = CGFloat(20)

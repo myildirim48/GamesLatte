@@ -10,6 +10,7 @@ class LatteImageView: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -18,12 +19,13 @@ class LatteImageView: UIImageView {
     
     convenience init(systemImageName:String) {
         self.init(frame: .zero)
+        configure()
         setImage(imageName: systemImageName)
     }
     
     private func configure() {
         clipsToBounds = true
-        contentMode = .scaleToFill
+        contentMode = .scaleAspectFill
         translatesAutoresizingMaskIntoConstraints = false
     }
     

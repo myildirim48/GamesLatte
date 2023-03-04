@@ -33,6 +33,10 @@ class GamesVM: NSObject {
         gameRequestManager?.requestAll()
     }
     
+    func item(for indexPath: IndexPath) -> Int? {
+        dataSource.itemIdentifier(for: indexPath)?.id
+    }
+    
     func applyDatasourceChange(section: GamesDataSource.Section, resources: [DisplayableResource]){
         guard !resources.isEmpty else { return }
         

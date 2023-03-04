@@ -50,7 +50,20 @@ class GamesVC: UICollectionViewController {
         collectionView.register(TitleReusableView.self, forSupplementaryViewOfKind: TitleReusableView.elementKind, withReuseIdentifier: TitleReusableView.reuseIdentifier)
     }
 }
-
+//MARK: - ColletionView Delegate
+extension GamesVC {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedGameID = gamesViewModel.item(for: indexPath)
+        
+        let detailVC = DetailVC(environemnt: environment)
+        detailVC.selectedGameID = selectedGameID
+        
+        let navController = UINavigationController(rootViewController: detailVC)
+        present(navController, animated: true)
+    }
+}
+//MARK: - Configure Data Source
 extension GamesVC {
     private func configureDataSource() -> GamesDataSource {
         let datasource = GamesDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in

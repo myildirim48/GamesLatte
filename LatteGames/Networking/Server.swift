@@ -32,7 +32,7 @@ class Server {
     /// Games Request for Games
     /// - Parameter : All games by rating
     /// - Returns: Authenticated request with matching GameDataModelResult type
-    func gameAllRequest() throws -> GameRequest<GameDataModelResult>{
+    func gameAllRequest() throws -> GameRequest<NetworkResponse<GameDataModelResult>>{
         return GameRequest(baseURL, path: .base, auth: authQueryItems())
     }
     
