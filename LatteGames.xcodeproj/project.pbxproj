@@ -52,6 +52,7 @@
 		74B24F1729AF7C2C008704F6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1629AF7C2C008704F6 /* Date+Ext.swift */; };
 		74B24F1A29B143F2008704F6 /* LatteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1929B143F2008704F6 /* LatteImageView.swift */; };
 		74B24F1C29B2803F008704F6 /* GameDetailRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1B29B2803F008704F6 /* GameDetailRequestManager.swift */; };
+		74B24F1F29B50380008704F6 /* RatingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1E29B50380008704F6 /* RatingInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		74B24F1629AF7C2C008704F6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		74B24F1929B143F2008704F6 /* LatteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatteImageView.swift; sourceTree = "<group>"; };
 		74B24F1B29B2803F008704F6 /* GameDetailRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailRequestManager.swift; sourceTree = "<group>"; };
+		74B24F1E29B50380008704F6 /* RatingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 		74B24EFB29ADF9C9008704F6 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				74B24F1D29B50370008704F6 /* RatingInfoView */,
 				74B24F1829B143E7008704F6 /* IImageView */,
 				74B24F0B29AE4607008704F6 /* ResuableViews */,
 				74B24F0129ADFCF9008704F6 /* Labels */,
@@ -352,6 +355,14 @@
 				74B24F1929B143F2008704F6 /* LatteImageView.swift */,
 			);
 			path = IImageView;
+			sourceTree = "<group>";
+		};
+		74B24F1D29B50370008704F6 /* RatingInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				74B24F1E29B50380008704F6 /* RatingInfoView.swift */,
+			);
+			path = RatingInfoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,6 +446,7 @@
 				74B24EFD29ADF9DC008704F6 /* GameCell.swift in Sources */,
 				74AFABA229ACABF800413BD2 /* Server.swift in Sources */,
 				74AFABAD29ACBC5F00413BD2 /* FavoritesVM.swift in Sources */,
+				74B24F1F29B50380008704F6 /* RatingInfoView.swift in Sources */,
 				74B24EE729ACF001008704F6 /* SecretKey.swift in Sources */,
 				74B24F1729AF7C2C008704F6 /* Date+Ext.swift in Sources */,
 				74B24F1A29B143F2008704F6 /* LatteImageView.swift in Sources */,

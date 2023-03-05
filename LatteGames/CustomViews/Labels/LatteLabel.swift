@@ -16,14 +16,16 @@ class LatteLabel: UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    convenience init(textAligment: NSTextAlignment, font: UIFont) {
+    
+    convenience init(textAligment: NSTextAlignment, font: UIFont,text: String = "",textColor: UIColor = .label) {
         self.init(frame: .zero)
         self.textAlignment = textAligment
         self.font = font
+        self.text = text
+        self.textColor = textColor
     }
     
     private func configure() {
-        textColor = .label
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail

@@ -17,10 +17,11 @@ class LatteImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(systemImageName:String) {
+    convenience init(systemImageName:String, tintColor: UIColor? = nil) {
         self.init(frame: .zero)
         configure()
         setImage(imageName: systemImageName)
+        self.tintColor = tintColor
     }
     
     private func configure() {

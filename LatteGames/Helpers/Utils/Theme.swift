@@ -13,7 +13,8 @@ struct Theme {
         static let titleWeight : UIFont.Weight = .semibold
         static let titleDescriptor = UIFont.systemFont(ofSize: titleSize, weight: titleWeight).fontDescriptor.withDesign(.rounded)
         static let titleFont: UIFont = Theme.fonts.titleDescriptor == nil ? .systemFont(ofSize: titleSize,weight: titleWeight) : UIFont(descriptor: Theme.fonts.titleDescriptor!, size: 0.0)
-        static let desriptionFont = UIFont.preferredFont(forTextStyle: .caption2).withSize(12)
+        static let desriptionFont = UIFont.preferredFont(forTextStyle: .caption2).withSize(11)
+        static let secondaryLabel = UIFont.preferredFont(forTextStyle: .subheadline).withSize(13)
         
     }
 }

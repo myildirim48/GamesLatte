@@ -25,6 +25,20 @@ class FavoriteButton: UIButton {
         tintColor = .systemRed
         contentVerticalAlignment = .fill
         contentHorizontalAlignment = .fill
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 31),
+            widthAnchor.constraint(equalToConstant: 35)
+        ])
+        
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
+    
+    @objc private func buttonTapped(_ sender: UIButton){
+        
+            UIView.transition(with: self, duration: 0.25,options: .transitionCrossDissolve) {
+                self.isSelected = !self.isSelected
+            }
+        }
+    
     
 }

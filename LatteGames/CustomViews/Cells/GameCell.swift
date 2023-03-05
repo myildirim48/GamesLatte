@@ -44,9 +44,9 @@ class GameCell: UICollectionViewCell {
 //        guard let delegate = delegate else { return }
         //        delegate.gameCellFavoriteButtonTapped(cell: self)
         
-        UIView.transition(with: favoritesButton, duration: 0.25,options: .transitionCrossDissolve) {
-            self.favoritesButton.isSelected = !self.favoritesButton.isSelected
-        }
+//        UIView.transition(with: favoritesButton, duration: 0.25,options: .transitionCrossDissolve) {
+//            self.favoritesButton.isSelected = !self.favoritesButton.isSelected
+//        }
     }
     
     var gameData : DisplayableResource? {
@@ -103,11 +103,8 @@ class GameCell: UICollectionViewCell {
         releasedLabel.textColor = .secondaryLabel
         suggestionLabel.textColor = .secondaryLabel
 
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
         ratingLabelImage.translatesAutoresizingMaskIntoConstraints = false
         releasedImage.translatesAutoresizingMaskIntoConstraints = false
-        releasedLabel.translatesAutoresizingMaskIntoConstraints = false
-        suggestionLabel.translatesAutoresizingMaskIntoConstraints = false
         suggestionImage.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
@@ -141,9 +138,7 @@ class GameCell: UICollectionViewCell {
             
             favoritesButton.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor),
             favoritesButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -outerSpace),
-            favoritesButton.widthAnchor.constraint(equalToConstant: 35),
-            favoritesButton.heightAnchor.constraint(equalToConstant: 30),
-            
+
             releasedImage.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor,constant: innerSpace),
             releasedImage.leadingAnchor.constraint(equalTo: ratingLabelImage.leadingAnchor),
             
