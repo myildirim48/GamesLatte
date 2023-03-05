@@ -32,14 +32,11 @@ class DetailVC: UIViewController {
     
     
     let recommendationView = UIView()
-    let expectionalLabel = LatteLabel(textAligment: .left, font: Theme.fonts.secondaryLabel)
-    let expectionalLabelImage = LatteLabel(textAligment: .center, font: Theme.fonts.titleFont,text: "🤩")
-    let recommendedLabel = LatteLabel(textAligment: .left, font: Theme.fonts.secondaryLabel)
-    let recommendedLabelImage = LatteLabel(textAligment: .center, font: Theme.fonts.titleFont,text: "👍🏼")
-    let mehLabel = LatteLabel(textAligment: .left, font: Theme.fonts.secondaryLabel)
-    let mehLabelImage = LatteLabel(textAligment: .center, font: Theme.fonts.titleFont,text: "🤷🏻")
-    let skipLabel = LatteLabel(textAligment: .left, font: Theme.fonts.secondaryLabel)
-    let skipLabelImage = LatteLabel(textAligment: .center, font: Theme.fonts.titleFont,text: "👎🏼")
+    let expectionalLabel = RatingInfoView()
+    let stackView = UIStackView()
+    let recommendedLabel = RatingInfoView()
+    let mehLabel = RatingInfoView()
+    let skipLabel = RatingInfoView()
     
     required init(environemnt: Environment) {
         self.environment = environemnt
@@ -56,7 +53,7 @@ class DetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-
+        
         guard let gameID = selectedGameID else { return }
         detailVM.delegate = self
         detailVM.configure(gameID: gameID)
@@ -83,24 +80,25 @@ class DetailVC: UIViewController {
         selectedGame.ratings?.forEach({ item in
             switch item.title {
             case .exceptional:
-                expectionalLabel.text = String(item.percent ?? 0.0).appending("%")
+                expectionalLabel.set(imageEmoji: .expectional,percent:  String(item.percent ?? 0.0).appending("%"))
             case .recommended:
-                recommendedLabel.text = String(item.percent ?? 0.0).appending("%")
+                recommendedLabel.set(imageEmoji: .recommended,percent: String(item.percent ?? 0.0).appending("%"))
             case .meh:
-                mehLabel.text = String(item.percent ?? 0.0).appending("%")
+                mehLabel.set(imageEmoji: .meh,percent: String(item.percent ?? 0.0).appending("%"))
             case .skip:
-                skipLabel.text = String(item.percent ?? 0.0).appending("%")
+                skipLabel.set(imageEmoji: .skip,percent: String(item.percent ?? 0.0).appending("%"))
             case .none:
                 break
             }
-            })
+        })
         
     }
-                                      
+    
     private func configure(){
         
         view.addSubviews(gameImageView,nameLabel,genresLabel,ratingLabel,ratingLabelImage,releasedDateLabel,releasedDateLabelImage,publishersLabel,playtimeImage,playtimeLabel,favoriteButton,recommendationView)
-        recommendationView.addSubviews(expectionalLabel,expectionalLabelImage,recommendedLabel,recommendedLabelImage,mehLabel,mehLabelImage,skipLabel,skipLabelImage)
+        
+        recommendationView.addSubviews(expectionalLabel,recommendedLabel,mehLabel,skipLabel)
         
         let innerSpace:CGFloat = 5
         let outerSpace:CGFloat = 20
@@ -111,6 +109,7 @@ class DetailVC: UIViewController {
         recommendationView.translatesAutoresizingMaskIntoConstraints = false
         recommendationView.layer.borderWidth = 1
         recommendationView.layer.borderColor = UIColor.systemGray6.cgColor
+    
         
         NSLayoutConstraint.activate([
             
@@ -129,13 +128,13 @@ class DetailVC: UIViewController {
             
             genresLabel.topAnchor.constraint(equalTo: publishersLabel.bottomAnchor,constant: innerSpace),
             genresLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-
+            
             releasedDateLabelImage.topAnchor.constraint(equalTo: genresLabel.bottomAnchor,constant: outerSpace),
             releasedDateLabelImage.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor,constant: innerSpace),
-
+            
             releasedDateLabel.centerYAnchor.constraint(equalTo: releasedDateLabelImage.centerYAnchor),
             releasedDateLabel.leadingAnchor.constraint(equalTo: releasedDateLabelImage.trailingAnchor,constant: innerSpace),
-
+            
             ratingLabelImage.topAnchor.constraint(equalTo: releasedDateLabel.bottomAnchor,constant: innerSpace),
             ratingLabelImage.leadingAnchor.constraint(equalTo: releasedDateLabelImage.leadingAnchor),
             
@@ -148,39 +147,26 @@ class DetailVC: UIViewController {
             
             playtimeImage.topAnchor.constraint(equalTo: ratingLabelImage.bottomAnchor,constant: innerSpace),
             playtimeImage.leadingAnchor.constraint(equalTo: ratingLabelImage.leadingAnchor),
-
+            
             playtimeLabel.centerYAnchor.constraint(equalTo: playtimeImage.centerYAnchor),
             playtimeLabel.leadingAnchor.constraint(equalTo: playtimeImage.trailingAnchor,constant: innerSpace),
-
-            recommendationView.topAnchor.constraint(equalTo: expectionalLabelImage.topAnchor,constant: -innerSpace),
             
-            recommendationView.bottomAnchor.constraint(equalTo: expectionalLabel.bottomAnchor,constant: innerSpace),
-            recommendationView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            recommendationView.topAnchor.constraint(equalTo: gameImageView.bottomAnchor,constant: outerSpace),
+            recommendationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recommendationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recommendationView.bottomAnchor.constraint(equalTo: expectionalLabel.bottomAnchor),
             
-            expectionalLabelImage.topAnchor.constraint(equalTo: gameImageView.bottomAnchor,constant: outerSpace),
-            expectionalLabelImage.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: outerSpace*3),
-
-            expectionalLabel.centerXAnchor.constraint(equalTo: expectionalLabelImage.centerXAnchor),
-            expectionalLabel.topAnchor.constraint(equalTo: expectionalLabelImage.bottomAnchor,constant: innerSpace),
-
-            recommendedLabelImage.centerYAnchor.constraint(equalTo: expectionalLabelImage.centerYAnchor),
-            recommendedLabelImage.leadingAnchor.constraint(equalTo: expectionalLabelImage.trailingAnchor,constant: outerSpace*3),
-
-            recommendedLabel.centerXAnchor.constraint(equalTo: recommendedLabelImage.centerXAnchor),
-            recommendedLabel.topAnchor.constraint(equalTo: recommendedLabelImage.bottomAnchor,constant: innerSpace),
-
-            mehLabelImage.centerYAnchor.constraint(equalTo: expectionalLabelImage.centerYAnchor),
-            mehLabelImage.leadingAnchor.constraint(equalTo: recommendedLabelImage.trailingAnchor,constant: outerSpace*3),
-
-            mehLabel.centerXAnchor.constraint(equalTo: mehLabelImage.centerXAnchor),
-            mehLabel.topAnchor.constraint(equalTo: mehLabelImage.bottomAnchor,constant: innerSpace),
-
-            skipLabelImage.centerYAnchor.constraint(equalTo: expectionalLabelImage.centerYAnchor),
-            skipLabelImage.leadingAnchor.constraint(equalTo: mehLabelImage.trailingAnchor,constant: outerSpace*3),
-
-            skipLabel.centerXAnchor.constraint(equalTo: skipLabelImage.centerXAnchor),
-            skipLabel.topAnchor.constraint(equalTo: skipLabelImage.bottomAnchor,constant: innerSpace)
+            expectionalLabel.trailingAnchor.constraint(equalTo: recommendedLabel.leadingAnchor,constant: -outerSpace*2),
+            expectionalLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
             
+            recommendedLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor,constant: -outerSpace*2),
+            recommendedLabel.topAnchor.constraint(equalTo: recommendationView.topAnchor,constant: innerSpace),
+            
+            mehLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor ,constant: outerSpace*2),
+            mehLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
+            
+            skipLabel.leadingAnchor.constraint(equalTo: mehLabel.trailingAnchor,constant: outerSpace*2),
+            skipLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor)
         ])
     }
 }
