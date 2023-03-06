@@ -16,3 +16,12 @@ class GamesDataSource: UICollectionViewDiffableDataSource<GamesDataSource.Sectio
     }
     
 }
+
+typealias GamesImagesSnapShot = NSDiffableDataSourceSnapshot<GamesImagesDataSource.Section, ScreenshotResult>
+
+class GamesImagesDataSource: UICollectionViewDiffableDataSource<GamesImagesDataSource.Section, ScreenshotResult> {
+    
+    enum Section {
+        case main
+    }
+}

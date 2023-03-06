@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Result
-struct ScreenshotResult: Codable {
+struct ScreenshotResult: Codable,Hashable {
     let id: Int
     let image: String
 

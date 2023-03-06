@@ -53,6 +53,7 @@
 		74B24F1A29B143F2008704F6 /* LatteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1929B143F2008704F6 /* LatteImageView.swift */; };
 		74B24F1C29B2803F008704F6 /* GameDetailRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1B29B2803F008704F6 /* GameDetailRequestManager.swift */; };
 		74B24F1F29B50380008704F6 /* RatingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F1E29B50380008704F6 /* RatingInfoView.swift */; };
+		74B24F2129B63135008704F6 /* ScreenShotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F2029B63135008704F6 /* ScreenShotsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		74B24F1929B143F2008704F6 /* LatteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatteImageView.swift; sourceTree = "<group>"; };
 		74B24F1B29B2803F008704F6 /* GameDetailRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailRequestManager.swift; sourceTree = "<group>"; };
 		74B24F1E29B50380008704F6 /* RatingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInfoView.swift; sourceTree = "<group>"; };
+		74B24F2029B63135008704F6 /* ScreenShotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				74B24EFC29ADF9DC008704F6 /* GameCell.swift */,
+				74B24F2029B63135008704F6 /* ScreenShotsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				74B24EF529ACF3C8008704F6 /* DisplayableResource.swift in Sources */,
 				74B24F0D29AE4616008704F6 /* LoaderReusableView.swift in Sources */,
 				74AFABA729ACBC4800413BD2 /* GamesVM.swift in Sources */,
+				74B24F2129B63135008704F6 /* ScreenShotsCell.swift in Sources */,
 				74AFAB9F29ACABE700413BD2 /* Store.swift in Sources */,
 				74B24EE929ACF0B9008704F6 /* UICollectionViewLayoutGenerator.swift in Sources */,
 				74B24EE129ACDE35008704F6 /* Constans.swift in Sources */,

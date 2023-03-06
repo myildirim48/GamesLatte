@@ -13,11 +13,11 @@ protocol DetailViewModelDelegate: NSObject{
 
 class DetailVM: NSObject {
     
-
 //    var selectedGameDetail: GameDetail?
     
     var gameDetailsVoid : ((GameDetail) -> Void)!
-
+    var screenShotsVoid : ((ScreenshotResult) -> Void)!
+    
     let environment: Environment!
     var detailViewRequestManager: GameDetailRequestManager?
     

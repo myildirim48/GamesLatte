@@ -20,20 +20,26 @@ class DetailVC: UIViewController {
     let nameLabel = LatteLabel(textAligment: .left, font: Theme.fonts.titleFont)
     let publishersLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel)
     let genresLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont)
+    let descriptionLabel = LatteLabel(textAligment: .left, font: .init(descriptor: .preferredFontDescriptor(withTextStyle: .body), size: 14))
     
     let favoriteButton = FavoriteButton(frame: .zero)
     
-    let ratingLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(75))
+    let ratingLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(0.75))
     let ratingLabelImage = LatteImageView(systemImageName: "star.fill",tintColor: .systemYellow)
-    let releasedDateLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(75))
+    let releasedDateLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(0.75))
     let releasedDateLabelImage = LatteImageView(systemImageName: "calendar.badge.plus",tintColor: .systemGreen)
-    let playtimeLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(75))
+    let playtimeLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(0.75))
     let playtimeImage = LatteImageView(systemImageName: "clock.badge.checkmark",tintColor: .systemBlue)
-    
+    let homePageImage = LatteImageView(systemImageName: "network",tintColor: .systemMint)
+    let homePagelabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,text: "HomePage Website", textColor: .secondaryLabel.withAlphaComponent(0.75))
+    let playablePlatformImage = LatteImageView(systemImageName: "gamecontroller.fill",tintColor: .systemIndigo)
+    let playableLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(0.75))
     
     let recommendationView = UIView()
+    var imageCollectionView : UICollectionView!
+    let contenView = UIView()
+    let scrollView = UIScrollView()
     let expectionalLabel = RatingInfoView()
-    let stackView = UIStackView()
     let recommendedLabel = RatingInfoView()
     let mehLabel = RatingInfoView()
     let skipLabel = RatingInfoView()
@@ -52,13 +58,17 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureScrollView()
+        configureCollectionView()
         configure()
+        
         
         guard let gameID = selectedGameID else { return }
         detailVM.delegate = self
         detailVM.configure(gameID: gameID)
         detailVM.gameDetailsVoid = { data in
             self.update(with: data)
+            self.selectedGame = data
         }
     }
     
@@ -76,6 +86,8 @@ class DetailVC: UIViewController {
         releasedDateLabel.text = selectedGame.released.transformStringToDate().dateToString()
         ratingLabel.text = "\(selectedGame.rating ?? 0.0) / 5"
         playtimeLabel.text = "\(selectedGame.playtime) Hours Played."
+        descriptionLabel.text = selectedGame.descriptionRaw
+        playableLabel.text = selectedGame.parentPlatforms.map({ $0.platform.name}).joined(separator: ", ")
         
         selectedGame.ratings?.forEach({ item in
             switch item.title {
@@ -92,11 +104,50 @@ class DetailVC: UIViewController {
             }
         })
         
+        configureWebsiteLink()
+    }
+    
+    
+     func configureWebsiteLink(){
+         homePagelabel.isUserInteractionEnabled = true
+         let tapLabel = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        homePagelabel.addGestureRecognizer(tapLabel)
+    }
+    
+    @objc func labelTapped(sender:UITapGestureRecognizer){
+        guard let url = URL(string: selectedGame?.website ?? "") else {
+            presentDefaultAlert()
+            return
+        }
+        presentSafariVC(with: url)
+    }
+    
+    private func configureCollectionView(){
+        imageCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewLayout())
+        imageCollectionView.setCollectionViewLayout(UICollectionViewLayoutGenerator.generateLayoutForStyle(.paginated), animated: false)
+        imageCollectionView.register(ScreenShotsCell.self, forCellWithReuseIdentifier: ScreenShotsCell.reuseId)
+        
+    }
+    
+    private func configureScrollView(){
+        view.addSubview(scrollView)
+        scrollView.addSubview(contenView)
+        
+        scrollView.pinToEdges(of: view)
+        contenView.pinToEdges(of: scrollView)
+        
+        NSLayoutConstraint.activate([
+            contenView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contenView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            
+        ])
     }
     
     private func configure(){
         
-        view.addSubviews(gameImageView,nameLabel,genresLabel,ratingLabel,ratingLabelImage,releasedDateLabel,releasedDateLabelImage,publishersLabel,playtimeImage,playtimeLabel,favoriteButton,recommendationView)
+        contenView.addSubviews(gameImageView,nameLabel,genresLabel,ratingLabel,ratingLabelImage,releasedDateLabel,releasedDateLabelImage,publishersLabel,playtimeImage,playtimeLabel,favoriteButton,recommendationView,homePageImage,homePagelabel,descriptionLabel,playableLabel,playablePlatformImage,imageCollectionView)
+        
+        
         
         recommendationView.addSubviews(expectionalLabel,recommendedLabel,mehLabel,skipLabel)
         
@@ -110,17 +161,18 @@ class DetailVC: UIViewController {
         recommendationView.layer.borderWidth = 1
         recommendationView.layer.borderColor = UIColor.systemGray6.cgColor
     
+        imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-            gameImageView.topAnchor.constraint(equalTo: view.topAnchor,constant: outerSpace*3),
-            gameImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: outerSpace),
+            gameImageView.topAnchor.constraint(equalTo: contenView.topAnchor,constant: outerSpace*3),
+            gameImageView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor,constant: outerSpace),
             gameImageView.heightAnchor.constraint(equalToConstant: 200),
             gameImageView.widthAnchor.constraint(equalToConstant: 130),
             
             nameLabel.topAnchor.constraint(equalTo: gameImageView.topAnchor,constant: innerSpace),
             nameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor,constant: innerSpace*2),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -outerSpace),
+            nameLabel.trailingAnchor.constraint(equalTo: contenView.trailingAnchor,constant: -outerSpace),
             
             publishersLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant: innerSpace),
             publishersLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
@@ -130,43 +182,64 @@ class DetailVC: UIViewController {
             genresLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             
             releasedDateLabelImage.topAnchor.constraint(equalTo: genresLabel.bottomAnchor,constant: outerSpace),
-            releasedDateLabelImage.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor,constant: innerSpace),
+            releasedDateLabelImage.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor,constant: innerSpace*2),
             
             releasedDateLabel.centerYAnchor.constraint(equalTo: releasedDateLabelImage.centerYAnchor),
             releasedDateLabel.leadingAnchor.constraint(equalTo: releasedDateLabelImage.trailingAnchor,constant: innerSpace),
             
             ratingLabelImage.topAnchor.constraint(equalTo: releasedDateLabel.bottomAnchor,constant: innerSpace),
-            ratingLabelImage.leadingAnchor.constraint(equalTo: releasedDateLabelImage.leadingAnchor),
+            ratingLabelImage.centerXAnchor.constraint(equalTo: releasedDateLabelImage.centerXAnchor),
             
             ratingLabel.centerYAnchor.constraint(equalTo: ratingLabelImage.centerYAnchor),
             ratingLabel.leadingAnchor.constraint(equalTo: ratingLabelImage.trailingAnchor,constant: innerSpace),
             
             favoriteButton.centerYAnchor.constraint(equalTo: ratingLabelImage.centerYAnchor),
-            favoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -outerSpace*2),
+            favoriteButton.trailingAnchor.constraint(equalTo: contenView.trailingAnchor,constant: -outerSpace*2),
             
             
             playtimeImage.topAnchor.constraint(equalTo: ratingLabelImage.bottomAnchor,constant: innerSpace),
-            playtimeImage.leadingAnchor.constraint(equalTo: ratingLabelImage.leadingAnchor),
+            playtimeImage.centerXAnchor.constraint(equalTo: ratingLabelImage.centerXAnchor),
             
             playtimeLabel.centerYAnchor.constraint(equalTo: playtimeImage.centerYAnchor),
             playtimeLabel.leadingAnchor.constraint(equalTo: playtimeImage.trailingAnchor,constant: innerSpace),
             
+            homePageImage.topAnchor.constraint(equalTo: playtimeLabel.bottomAnchor,constant: innerSpace),
+            homePageImage.centerXAnchor.constraint(equalTo: ratingLabelImage.centerXAnchor),
+            
+            homePagelabel.centerYAnchor.constraint(equalTo: homePageImage.centerYAnchor),
+            homePagelabel.leadingAnchor.constraint(equalTo: homePageImage.trailingAnchor,constant: innerSpace),
+            
+            playablePlatformImage.topAnchor.constraint(equalTo: homePagelabel.bottomAnchor,constant: innerSpace),
+            playablePlatformImage.centerXAnchor.constraint(equalTo: ratingLabelImage.centerXAnchor),
+            
+            playableLabel.centerYAnchor.constraint(equalTo: playablePlatformImage.centerYAnchor),
+            playableLabel.leadingAnchor.constraint(equalTo: playablePlatformImage.trailingAnchor,constant: innerSpace),
+            
             recommendationView.topAnchor.constraint(equalTo: gameImageView.bottomAnchor,constant: outerSpace),
-            recommendationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recommendationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recommendationView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor),
+            recommendationView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor),
             recommendationView.bottomAnchor.constraint(equalTo: expectionalLabel.bottomAnchor),
             
             expectionalLabel.trailingAnchor.constraint(equalTo: recommendedLabel.leadingAnchor,constant: -outerSpace*2),
             expectionalLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
             
-            recommendedLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor,constant: -outerSpace*2),
+            recommendedLabel.centerXAnchor.constraint(equalTo: contenView.centerXAnchor,constant: -outerSpace*2),
             recommendedLabel.topAnchor.constraint(equalTo: recommendationView.topAnchor,constant: innerSpace),
             
             mehLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor ,constant: outerSpace*2),
             mehLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
             
             skipLabel.leadingAnchor.constraint(equalTo: mehLabel.trailingAnchor,constant: outerSpace*2),
-            skipLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor)
+            skipLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: recommendationView.bottomAnchor,constant: innerSpace),
+            descriptionLabel.leadingAnchor.constraint(equalTo: recommendationView.leadingAnchor,constant: innerSpace*2),
+            descriptionLabel.trailingAnchor.constraint(equalTo: recommendationView.trailingAnchor,constant: -innerSpace*2),
+            
+            imageCollectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor,constant: outerSpace),
+            imageCollectionView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor),
+            imageCollectionView.trailingAnchor.constraint(equalTo: contenView.trailingAnchor),
+            imageCollectionView.bottomAnchor.constraint(equalTo: contenView.bottomAnchor)
         ])
     }
 }

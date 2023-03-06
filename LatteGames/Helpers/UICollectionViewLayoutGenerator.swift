@@ -14,11 +14,9 @@ struct UICollectionViewLayoutGenerator {
         var suplementaryViewKindForStyle: String {
             switch self {
             case .paginated:
-                return ""
-            #warning("LoaderReusableView.elementKind")
+                return LoaderReusableView.elementKind
             case .search:
-                return ""
-            #warning("SearchResuableView.elementKind")
+                return SearchReusableView.elementKind
             case .favorites:
                 return ""
             }
