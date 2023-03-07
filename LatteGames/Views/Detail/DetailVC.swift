@@ -61,7 +61,10 @@ class DetailVC: UIViewController {
         configureScrollView()
         configureCollectionView()
         configure()
+        configureDoneButton()
         
+        let dataSource = generateDatasource()
+        detailVM.dataSource = dataSource
         
         guard let gameID = selectedGameID else { return }
         detailVM.delegate = self
@@ -79,6 +82,7 @@ class DetailVC: UIViewController {
         
         Task { self.gameImageView.image = await ImageFetcher.shared.downloadImage(from: selectedGame.backgroundImage ?? "" )}
         
+        title = selectedGame.name
         nameLabel.text = selectedGame.name
         publishersLabel.text = selectedGame.publishers.map({ $0.name }).joined(separator: ", ")
         genresLabel.text = selectedGame.genres.map({ $0.name ?? " " }).joined(separator: ", ")
@@ -123,31 +127,34 @@ class DetailVC: UIViewController {
     }
     
     private func configureCollectionView(){
-        imageCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewLayout())
-        imageCollectionView.setCollectionViewLayout(UICollectionViewLayoutGenerator.generateLayoutForStyle(.paginated), animated: false)
+        imageCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewLayoutGenerator.generateLayoutForStyle(.paginated))
+//        imageCollectionView.setCollectionViewLayout( animated: false)
         imageCollectionView.register(ScreenShotsCell.self, forCellWithReuseIdentifier: ScreenShotsCell.reuseId)
-        
+        imageCollectionView.register(LoaderReusableView.self, forSupplementaryViewOfKind: LoaderReusableView.elementKind, withReuseIdentifier: LoaderReusableView.reuseIdentifier)
     }
-    
     private func configureScrollView(){
         view.addSubview(scrollView)
         scrollView.addSubview(contenView)
-        
         scrollView.pinToEdges(of: view)
         contenView.pinToEdges(of: scrollView)
-        
         NSLayoutConstraint.activate([
             contenView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contenView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            contenView.heightAnchor.constraint(equalToConstant: 1000)
             
         ])
     }
     
+    private func configureDoneButton(){
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    @objc func dismissVC(){
+        dismiss(animated: true)
+    }
+    #warning("here is hard coded")
     private func configure(){
         
         contenView.addSubviews(gameImageView,nameLabel,genresLabel,ratingLabel,ratingLabelImage,releasedDateLabel,releasedDateLabelImage,publishersLabel,playtimeImage,playtimeLabel,favoriteButton,recommendationView,homePageImage,homePagelabel,descriptionLabel,playableLabel,playablePlatformImage,imageCollectionView)
-        
-        
         
         recommendationView.addSubviews(expectionalLabel,recommendedLabel,mehLabel,skipLabel)
         
@@ -165,7 +172,7 @@ class DetailVC: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            gameImageView.topAnchor.constraint(equalTo: contenView.topAnchor,constant: outerSpace*3),
+            gameImageView.topAnchor.constraint(equalTo: contenView.topAnchor,constant: outerSpace),
             gameImageView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor,constant: outerSpace),
             gameImageView.heightAnchor.constraint(equalToConstant: 200),
             gameImageView.widthAnchor.constraint(equalToConstant: 130),
@@ -232,9 +239,9 @@ class DetailVC: UIViewController {
             skipLabel.leadingAnchor.constraint(equalTo: mehLabel.trailingAnchor,constant: outerSpace*2),
             skipLabel.centerYAnchor.constraint(equalTo: recommendedLabel.centerYAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: recommendationView.bottomAnchor,constant: innerSpace),
-            descriptionLabel.leadingAnchor.constraint(equalTo: recommendationView.leadingAnchor,constant: innerSpace*2),
-            descriptionLabel.trailingAnchor.constraint(equalTo: recommendationView.trailingAnchor,constant: -innerSpace*2),
+            descriptionLabel.topAnchor.constraint(equalTo: recommendationView.bottomAnchor,constant: outerSpace),
+            descriptionLabel.leadingAnchor.constraint(equalTo: recommendationView.leadingAnchor,constant: outerSpace),
+            descriptionLabel.trailingAnchor.constraint(equalTo: recommendationView.trailingAnchor,constant: -outerSpace),
             
             imageCollectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor,constant: outerSpace),
             imageCollectionView.leadingAnchor.constraint(equalTo: contenView.leadingAnchor),
@@ -243,7 +250,30 @@ class DetailVC: UIViewController {
         ])
     }
 }
+//MARK: - Data Source Generator
 
+extension DetailVC {
+    public func generateDatasource() -> GamesImagesDataSource {
+        
+        let dataSource = GamesImagesDataSource(collectionView: imageCollectionView, cellProvider: { (collectionView, indexPath, gameScreenShot) -> UICollectionViewCell? in
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScreenShotsCell.reuseId, for: indexPath) as! ScreenShotsCell
+            Task {
+                cell.imageView.image = await ImageFetcher.shared.downloadImage(from: gameScreenShot.image )
+                cell.activityIndicator.stopAnimating()
+            }
+            return cell
+        })
+        
+        dataSource.supplementaryViewProvider =  {(collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            let loaderSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoaderReusableView.reuseIdentifier, for: indexPath) as! LoaderReusableView
+            return loaderSupplementary
+        }
+        return dataSource
+    }
+}
+
+//MARK: - Error Handler
 extension DetailVC: DetailViewModelDelegate {
     func viewModelDidReceiveError(error: UserFriendlyError) {
         presentAlertWithError(message: error) { _ in}

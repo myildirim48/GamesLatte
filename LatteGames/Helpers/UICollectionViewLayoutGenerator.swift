@@ -70,11 +70,12 @@ struct UICollectionViewLayoutGenerator {
             item.contentInsets = itemInsets
             
             let columns = sectionLayoutKind.columnCount(for: layoutEnvironment.container.effectiveContentSize.width)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(180))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.6))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
             
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 10
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 20
             section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
             
             if style != .favorites {
@@ -82,7 +83,7 @@ struct UICollectionViewLayoutGenerator {
                 let suplemantaryItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: suplemantaryItemSize, elementKind: style.suplementaryViewKindForStyle, alignment: style.alignForViewKind)
                 section.boundarySupplementaryItems = [suplemantaryItem]
             }
-            
+
             return section
         }
     }
@@ -96,7 +97,7 @@ struct UICollectionViewLayoutGenerator {
                 case .alltimeBest: return "All Time Best's "
                 case .alltimeBestMultiplayer: return "All Time Multiplayers Best"
                 case .lastyearPopular: return "Popular in 2022"
-            case .lastmonthReleased: return "Released in last month"
+                case .lastmonthReleased: return "Released in last month"
             }
         }
         
@@ -140,7 +141,6 @@ struct UICollectionViewLayoutGenerator {
             let titleSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
             let titleSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: titleSize, elementKind: TitleReusableView.elementKind, alignment: .top)
             section.boundarySupplementaryItems = [titleSupplementary]
-        
             return section
         }
         

@@ -42,7 +42,14 @@ class Server {
     func fetchGameDetail(id: Int) throws -> GameRequest<GameDetail>{
         return GameRequest(baseURL, path: .detail(String(id)), auth: authQueryItems())
     }
+
     
+    /// Screen Shots Request for Game Screen shots
+    /// - Parameter id: Game id for screenshots
+    /// - Returns: Authenticated request with matching ScreenShotResults type
+    func fetchGameScreenShots(id: Int) throws -> GameRequest<NetworkResponse<ScreenshotResult>>{
+        return GameRequest(baseURL, path: .screenShots(String(id)), auth: authQueryItems())
+    }
     
 }
 extension Server {

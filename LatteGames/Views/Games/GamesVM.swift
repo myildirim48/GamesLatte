@@ -11,11 +11,9 @@ protocol GamesViewModelDelegate: NSObject {
 }
 
 class GamesVM: NSObject {
-    private enum State { case ready, loading }
 
     private let environment: Environment!
-    private var state: State = .ready
-
+    
     var dataSource: GamesDataSource! = nil
     var gameRequestManager: GameListRequestManager?
 

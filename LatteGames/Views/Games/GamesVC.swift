@@ -10,7 +10,6 @@ import UIKit
 class GamesVC: UICollectionViewController {
     
     private let environment: Environment!
-    private var dataSource: GamesDataSource?
     private var gamesViewModel: GamesVM!
     
 //    private var searchResultVM : SearchResultVM!
@@ -43,7 +42,7 @@ class GamesVC: UICollectionViewController {
     
     private func configureCollectionView(){
 //        view.addSubview(collectionView)
-        collectionView.setCollectionViewLayout(UICollectionViewLayoutGenerator.resourcesCollectionViewLayout(), animated: false)
+//        collectionView.setCollectionViewLayout(UICollectionViewLayoutGenerator.resourcesCollectionViewLayout(), animated: false)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(GameCell.self, forCellWithReuseIdentifier: GameCell.reuseId)
         collectionView.register(LoaderReusableView.self, forSupplementaryViewOfKind: LoaderReusableView.elementKind, withReuseIdentifier: LoaderReusableView.reuseIdentifier)
@@ -74,12 +73,21 @@ extension GamesVC {
         
         datasource.supplementaryViewProvider = {
             (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            let titleSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleReusableView.reuseIdentifier, for: indexPath) as! TitleReusableView
-            
-            let section = UICollectionViewLayoutGenerator.ResourceSection(rawValue: indexPath.section)!
-            titleSupplementary.label.text = section.sectionTitle
-            
-            return titleSupplementary
+            switch kind {
+            case LoaderReusableView.elementKind:
+                let loaderSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoaderReusableView.reuseIdentifier, for: indexPath) as! LoaderReusableView
+                return loaderSupplementary
+            case TitleReusableView.elementKind:
+                let titleSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleReusableView.reuseIdentifier, for: indexPath) as! TitleReusableView
+                
+                let section = UICollectionViewLayoutGenerator.ResourceSection(rawValue: indexPath.section)!
+                titleSupplementary.label.text = section.sectionTitle
+                
+                return titleSupplementary
+            default:
+             return nil
+            }
+          
         }
         return datasource
     }

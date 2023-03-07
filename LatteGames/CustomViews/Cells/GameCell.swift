@@ -73,9 +73,9 @@ class GameCell: UICollectionViewCell {
         DispatchQueue.main.async {
             Task {
                 self.imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
-
+        self.activityIndicator.stopAnimating()
             }
-            self.activityIndicator.stopAnimating()
+            
         }
 
        

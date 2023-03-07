@@ -21,7 +21,7 @@ typealias GamesImagesSnapShot = NSDiffableDataSourceSnapshot<GamesImagesDataSour
 
 class GamesImagesDataSource: UICollectionViewDiffableDataSource<GamesImagesDataSource.Section, ScreenshotResult> {
     
-    enum Section {
+    enum Section:CaseIterable{
         case main
     }
 }
