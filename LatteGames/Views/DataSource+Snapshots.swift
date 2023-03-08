@@ -7,6 +7,18 @@
 
 import UIKit
 
+typealias SearchSnapshot = NSDiffableDataSourceSnapshot<SearchDataSource.Section, GameDataModelResult>
+
+class SearchDataSource: UICollectionViewDiffableDataSource<SearchDataSource.Section, GameDataModelResult> {
+    
+    enum Section:CaseIterable {
+        case main
+    }
+    
+}
+
+
+
 typealias GamesSnapshot = NSDiffableDataSourceSnapshot<GamesDataSource.Section, DisplayableResource>
 
 class GamesDataSource: UICollectionViewDiffableDataSource<GamesDataSource.Section, DisplayableResource> {

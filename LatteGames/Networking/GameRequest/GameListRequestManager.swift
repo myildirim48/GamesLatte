@@ -15,9 +15,9 @@ class GameListRequestManager {
     let server: Server!
     weak var delegate :GameListRequestManagerDelegate?
     
-    var gamesRequest : GameRequest<NetworkResponse<GameDataModelResult>>!
+     private var gamesRequest : GameRequest<NetworkResponse<GameDataModelResult>>!
     
-    var gamesRequestLoader : RequestLoader<GameRequest<NetworkResponse<GameDataModelResult>>>!
+    private var gamesRequestLoader : RequestLoader<GameRequest<NetworkResponse<GameDataModelResult>>>!
     
     init(server: Server,delegate: GameListRequestManagerDelegate) {
         self.server = server

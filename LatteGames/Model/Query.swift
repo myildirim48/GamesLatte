@@ -28,7 +28,7 @@ extension Query {
     }
 
     static func search(_ value: String) -> Query {
-        Query(name: "search", value: value)
+        Query(name: "search_exact", value: value)
     }
     
     static func dates(betweenDates dateFrom: String, _ dateTo: String) -> Query{

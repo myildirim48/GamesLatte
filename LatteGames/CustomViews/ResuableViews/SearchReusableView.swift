@@ -9,7 +9,7 @@ import UIKit
 class SearchReusableView: UICollectionReusableView {
     
     static let elementKind = "search-results-kind"
-    static let reuseIdentifier = "loader-reusable-identifier"
+    static let reuseIdentifier = "search-reusable-identifier"
     
     let label = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont)
     let containerView = UIView()
