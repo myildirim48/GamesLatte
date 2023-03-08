@@ -7,7 +7,7 @@
 
 import Foundation
 protocol SearchResultVMErrorHandler:AnyObject {
-    func viewModelDidRecieveError(error: UserFriendlyError)
+    func viewModelDidReceiveError(error: UserFriendlyError)
 }
 protocol SearchResultVMInformationHandler:AnyObject {
     func presentSerachActivity()
@@ -23,10 +23,10 @@ class SearchResultVM: NSObject {
     private var searcgRequest : GameRequest<NetworkResponse<GameDataModelResult>>!
     
     private var searchRequestLoader : RequestLoader<GameRequest<NetworkResponse<GameDataModelResult>>>!
-    private let debouncer : Debouncer = Debouncer(minimumDelay: 0.5)
+    private let debouncer : Debouncer = Debouncer(minimumDelay: 0.75)
     
     private var currentSearchResult : SearchResult?
-    private var searchDataSource: SearchDataSource?
+    private var searchDataSource: GamesDataSource?
     
     weak var errorHandler: SearchResultVMErrorHandler?
     weak var infoHandler: SearchResultVMInformationHandler?
@@ -38,7 +38,7 @@ class SearchResultVM: NSObject {
         searchRequestLoader = RequestLoader(request: searcgRequest)
     }
     
-    func configureDataSource(with dataSource: SearchDataSource){
+    func configureDataSource(with dataSource: GamesDataSource){
         searchDataSource = dataSource
         configureDataSource()
     }
@@ -49,7 +49,7 @@ class SearchResultVM: NSObject {
     
     func requestOffsetForInput(_ text: String) -> Int{
         guard let cs = currentSearchResult, text == cs.query.input.value else {
-            return 0
+            return 1
         }
         
         let currentPage = Int(cs.query.page.value)!
@@ -90,11 +90,11 @@ class SearchResultVM: NSObject {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                guard let count = response.count, let result = response.results else { return }
+                guard let count = response.count, let result = response.results?.toDisplayable(type: .alltimeBest) else { return }
                 self.updateSearchResult(with: SearchResult(total: count, query: searchQuery), data: result)
             case .failure(let error):
                 self.state = .ready
-                self.errorHandler?.viewModelDidRecieveError(error: .userFriendlyError(error))
+                self.errorHandler?.viewModelDidReceiveError(error: .userFriendlyError(error))
             }
         }
     }
@@ -110,20 +110,20 @@ class SearchResultVM: NSObject {
     }
     
     //MARK: - Data Source
-    func item(for indexPath: IndexPath) -> GameDataModelResult? {
+    func item(for indexPath: IndexPath) -> DisplayableResource? {
         searchDataSource?.itemIdentifier(for: indexPath)
     }
     
-    func updateSearchResult(with result: SearchResult, data: [GameDataModelResult]){
+    func updateSearchResult(with result: SearchResult, data: [DisplayableResource]){
         guard let dataSource = searchDataSource else { return  }
         state = .ready
         
         var currentSnapshot = dataSource.snapshot()
         if result.query.input == currentSearchResult?.query.input{
-            currentSnapshot.appendItems(data,toSection: .main)
+            currentSnapshot.appendItems(data)
         }else if !data.isEmpty {
-            currentSnapshot = SearchSnapshot()
-            currentSnapshot.appendSections([.main])
+            currentSnapshot = GamesSnapshot()
+            currentSnapshot.appendSections([.lastyearPopular])
             currentSnapshot.appendItems(data)
         }
         
@@ -133,28 +133,28 @@ class SearchResultVM: NSObject {
         
     }
     
-    private func reloadDataSource(with character: GameDataModelResult){
+    private func reloadDataSource(with game: DisplayableResource){
         guard let dataSource = searchDataSource else { return }
         
         defer { state = .ready }
         
         var snapshot = dataSource.snapshot()
-        if snapshot.itemIdentifiers.contains(character){
-            snapshot.reloadItems([character])
+        if snapshot.itemIdentifiers.contains(game){
+            snapshot.reloadItems([game])
             apply(snapshot)
         }
     }
     
     
-    private func apply(_ changes: SearchSnapshot ,animating:Bool = true){
+    private func apply(_ changes: GamesSnapshot, animating:Bool = true){
         DispatchQueue.main.async {
             self.searchDataSource?.apply(changes,animatingDifferences: animating)
         }
     }
     private func configureDataSource(){
-        var initialSnapShot = SearchSnapshot()
-        initialSnapShot.appendSections([.main])
-        initialSnapShot.appendItems([],toSection: .main)
+        var initialSnapShot = GamesSnapshot()
+        initialSnapShot.appendSections([GamesDataSource.Section.lastyearPopular])
+        initialSnapShot.appendItems([],toSection: .lastyearPopular)
         apply(initialSnapShot,animating: false)
     }
     

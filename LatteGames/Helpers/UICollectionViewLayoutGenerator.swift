@@ -74,7 +74,9 @@ struct UICollectionViewLayoutGenerator {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
             
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+            if style != .search {
+                section.orthogonalScrollingBehavior = .continuous
+            }
             section.interGroupSpacing = 20
             section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
             
