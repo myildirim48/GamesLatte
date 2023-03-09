@@ -77,8 +77,8 @@ struct UICollectionViewLayoutGenerator {
             if style != .search {
                 section.orthogonalScrollingBehavior = .continuous
             }
-            section.interGroupSpacing = 20
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
+            section.interGroupSpacing = 15
+            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 5, bottom: 10, trailing: 5)
             
             if style != .favorites {
                 let suplemantaryItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(style.heightForViewKind))

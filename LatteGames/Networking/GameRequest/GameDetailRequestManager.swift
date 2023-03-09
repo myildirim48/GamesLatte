@@ -6,18 +6,14 @@
 //
 
 import Foundation
-
 protocol GameDetailRequestManagerDelegate: NSObject {
     func gameDetailRequestManagerDidRecieveData(for GameDetail: GameDetail)
     func gameDetailRequestManagerDidRecieveScreenShots(for ScreenShots: [ScreenshotResult])
     func gameDetailRequestManagerDidRecieveError(userFriendlyError: UserFriendlyError)
 }
-
 class GameDetailRequestManager {
     let server: Server!
-    
     weak var delegate: GameDetailRequestManagerDelegate?
-    
     var gameDetailRequest: GameRequest<GameDetail>!
     var gameScreenshotsRequest: GameRequest<NetworkResponse<ScreenshotResult>>!
     
@@ -28,7 +24,6 @@ class GameDetailRequestManager {
         self.server = server
         self.delegate = delegate
     }
-    
     func configureRequests(id:Int) {
         gameDetailRequest = try? server.fetchGameDetail(id: id)
         gameScreenshotsRequest = try? server.fetchGameScreenShots(id: id)
@@ -36,13 +31,10 @@ class GameDetailRequestManager {
         gameDetailRequestLoader = RequestLoader(request: gameDetailRequest)
         gameScreenshotsRequestLoader = RequestLoader(request: gameScreenshotsRequest)
     }
-    
     func fetchAllDetails(){
         fetchGameDetails()
     }
-    
     private func fetchGameDetails() {
-        
         gameDetailRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -56,10 +48,8 @@ class GameDetailRequestManager {
                 return
             }
         }
-        
         gameScreenshotsRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let response):
                 guard let response = response.results else { return }
@@ -73,7 +63,5 @@ class GameDetailRequestManager {
                 return
             }
         }
-        
-        
     }
 }

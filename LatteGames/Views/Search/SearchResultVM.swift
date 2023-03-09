@@ -9,8 +9,8 @@ import Foundation
 protocol SearchResultVMErrorHandler:AnyObject {
     func viewModelDidReceiveError(error: UserFriendlyError)
 }
-protocol SearchResultVMInformationHandler:AnyObject {
-    func presentSerachActivity()
+protocol SearchResultVMInformationHandler: NSObject {
+    func presentSearchActivity()
     func presentSearchResult(with count:Int)
 }
 
@@ -60,7 +60,7 @@ class SearchResultVM: NSObject {
     func composeNextPageSearchQuery() -> SearchQuery? {
         guard let csi = currentSearchResult?.query.input.value else { return nil }
         
-        let searchQuery = SearchQuery(page:.page(page: requestOffsetForInput(csi).toString()), input: .search(csi))
+        let searchQuery = SearchQuery(page:.page(page: requestOffsetForInput(csi).toString()), input: .search(csi), ordering: .ordering("-metacritic"))
         guard searchQuery != currentSearchResult?.query else { return nil }
         return searchQuery
     }
@@ -68,7 +68,7 @@ class SearchResultVM: NSObject {
     func composeSearchQuery(with text: String) -> SearchQuery? {
         guard text != currentSearchResult?.query.input.value else { return nil }
         
-        let searchQuery = SearchQuery(page: .page(page: requestOffsetForInput(text).toString()), input: .search(text))
+        let searchQuery = SearchQuery(page: .page(page: requestOffsetForInput(text).toString()), input: .search(text), ordering: .ordering("-metacritic"))
         guard searchQuery != currentSearchResult?.query else { return nil}
         return searchQuery
     }
@@ -78,7 +78,7 @@ class SearchResultVM: NSObject {
         debouncer.debounce { [unowned self] in
             guard let newSearchQuery = self.composeSearchQuery(with: text) else { return }
             
-            self.infoHandler?.presentSerachActivity()
+            self.infoHandler?.presentSearchActivity()
             self.requestWithQuery(searchQuery: newSearchQuery)
         }
     }
@@ -86,7 +86,7 @@ class SearchResultVM: NSObject {
     func requestWithQuery(searchQuery: SearchQuery) {
         state = .loading
         
-        self.searchRequestLoader.load(data: [searchQuery.page,searchQuery.input]) { [weak self] result in
+        self.searchRequestLoader.load(data: [searchQuery.page,searchQuery.input,searchQuery.ordering]) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -103,9 +103,9 @@ class SearchResultVM: NSObject {
         guard let dataSource = searchDataSource else { return }
         let currentSnapshot = dataSource.snapshot()
         
-        guard currentSnapshot.numberOfItems == (index + defaultPrefetchBuffer)
-                && state == .ready,
-                let searchQuery = composeNextPageSearchQuery() else { return }
+        guard currentSnapshot.numberOfItems == (index + defaultPrefetchBuffer) && state == .ready,
+        let searchQuery = composeNextPageSearchQuery() else { return }
+        
         requestWithQuery(searchQuery: searchQuery)
     }
     
@@ -175,10 +175,12 @@ extension SearchResultVM {
     struct SearchQuery:Equatable {
         let page: Query
         let input: Query
+        let ordering: Query
     }
     
     struct SearchResult{
         let total:Int
         let query:SearchQuery
+        
     }
 }

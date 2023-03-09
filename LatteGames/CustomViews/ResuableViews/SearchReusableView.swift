@@ -28,7 +28,7 @@ class SearchReusableView: UICollectionReusableView {
         super.init(coder: coder)
     }
     
-    func presentInformation(count: Int){
+    func presentInformation(count: Int ){
         let info = count > 0 ? "\(count) games found." : "No games found."
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()

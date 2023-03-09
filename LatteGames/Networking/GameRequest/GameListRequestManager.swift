@@ -7,7 +7,7 @@
 
 import Foundation
 protocol GameListRequestManagerDelegate:NSObject {
-    func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [DisplayableResource])
+    func requestManagerDidRecieveData(for section: GamesDataSource.Section, data: [DisplayableResource],dataContainer: NetworkResponse<GameDataModelResult>)
     func requestManagerDidReceiveError(userFriendlyError: UserFriendlyError)
 }
 class GameListRequestManager {
@@ -26,9 +26,7 @@ class GameListRequestManager {
 
     func configureRequests() {
         gamesRequest = try? server.gameAllRequest()
-//        multiplayerRequest = try? server.gameAllRequest()
         gamesRequestLoader = RequestLoader(request: gamesRequest)
-//        multiplayerRequestLoader = RequestLoader(request: multiplayerRequest)
     }
     
     func requestAll(){
@@ -40,13 +38,12 @@ class GameListRequestManager {
     
     private func fetchAllTime(){
         
-        
         gamesRequestLoader.load(data: []) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                guard let response = response.results else { return }
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: response.toDisplayable(type: .alltimeBest))
+                guard let results = response.results else { return }
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBest, data: results.toDisplayable(type: .alltimeBest), dataContainer: response)
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -62,8 +59,8 @@ class GameListRequestManager {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                guard let response = response.results else { return }
-                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: response.toDisplayable(type: .alltimeBestMultiplayer))
+                guard let results = response.results else { return }
+                self.delegate?.requestManagerDidRecieveData(for: .alltimeBestMultiplayer, data: results.toDisplayable(type: .alltimeBestMultiplayer), dataContainer: response)
                 return
             case .failure(let error):
                 self.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))
@@ -79,8 +76,8 @@ class GameListRequestManager {
         gamesRequestLoader.load(data: datesQuery) { [weak self] result in
             switch result {
             case .success(let response):
-                guard let response = response.results else { return }
-                self?.delegate?.requestManagerDidRecieveData(for: sectionFor, data: response.toDisplayable(type: displayableFor))
+                guard let results = response.results else { return }
+                self?.delegate?.requestManagerDidRecieveData(for: sectionFor, data: results.toDisplayable(type: displayableFor), dataContainer: response)
                 return
             case .failure(let error):
                 self?.delegate?.requestManagerDidReceiveError(userFriendlyError: .userFriendlyError(error))

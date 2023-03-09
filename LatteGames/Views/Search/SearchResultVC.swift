@@ -38,7 +38,7 @@ extension SearchResultVC: UISearchResultsUpdating, UISearchControllerDelegate {
 }
 //MARK: - Search Reusable Info
 extension SearchResultVC: SearchResultVMInformationHandler {
-    func presentSerachActivity() {
+    func presentSearchActivity() {
         guard let searchInfoView = searchInfoView else { return }
         searchInfoView.presentActivityIndicator()
     }

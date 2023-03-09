@@ -16,6 +16,8 @@ class GamesVC: UICollectionViewController {
     var searchController: UISearchController!
     var searchResultVC: SearchResultVC!
     
+    private var dataSource : GamesDataSource?
+    
     required init?(coder:NSCoder) {
         self.environment = Environment(server: Server(), store: Store())
         super.init(coder: coder)
@@ -37,7 +39,8 @@ class GamesVC: UICollectionViewController {
         configureCollectionView()
         configureSearch()
         
-        let dataSource = configureDataSource(for: collectionView)
+//        let dataSource = configureDataSource(for: collectionView)
+        dataSource = configureDataSource(for: collectionView)
         gamesViewModel.dataSource = dataSource
         gamesViewModel.errorHandler = self
         
@@ -76,7 +79,27 @@ extension GamesVC {
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         switch collectionView {
-        case searchResultVC.collectionView: searchViewModel.shouldFetchData(index: indexPath.item)
+        case self.collectionView:
+            
+            //TODO -> Pagination
+            
+            guard let currentSection = dataSource?.snapshot().sectionIdentifiers[indexPath.section] else { return }
+            
+            switch currentSection {
+            case .alltimeBest:
+//                gamesViewModel.gameRequestManager.fetchAllTime()
+                print("Alltime best")
+                return
+            case .alltimeBestMultiplayer:
+                print("Alltime best multiplayer")
+            case .lastyearPopular:
+                print("Last year popular")
+            case .lastmonthReleased:
+                print("Last month Released")
+                
+            }
+        case searchResultVC.collectionView:
+            searchViewModel.shouldFetchData(index: indexPath.item)
         default:
             return
         }
@@ -120,6 +143,7 @@ extension GamesVC {
                 
             case SearchReusableView.elementKind:
                 let searchSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchReusableView.reuseIdentifier, for: indexPath) as! SearchReusableView
+                self.searchResultVC.searchInfoView = searchSupplementary
                 return searchSupplementary
             default:
              return nil
