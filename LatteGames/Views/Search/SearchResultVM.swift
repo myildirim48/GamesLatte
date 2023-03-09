@@ -90,8 +90,8 @@ class SearchResultVM: NSObject {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                guard let count = response.count, let result = response.results?.toDisplayable(type: .alltimeBest) else { return }
-                self.updateSearchResult(with: SearchResult(total: count, query: searchQuery), data: result)
+                guard let result = response.results?.toDisplayable(type: .alltimeBest) else { return }
+                self.updateSearchResult(with: SearchResult(total:response.count, query: searchQuery), data: result)
             case .failure(let error):
                 self.state = .ready
                 self.errorHandler?.viewModelDidReceiveError(error: .userFriendlyError(error))

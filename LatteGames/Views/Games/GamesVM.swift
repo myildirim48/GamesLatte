@@ -11,10 +11,8 @@ protocol GamesViewModelDelegate: NSObject {
 }
 
 class GamesVM: NSObject {
-    private enum State { case ready, loading }
     
     private let environment: Environment!
-    private var state: State = .ready
     
     var dataSource: GamesDataSource! = nil
     var gameRequestManager: GameListRequestManager?
@@ -50,22 +48,51 @@ class GamesVM: NSObject {
     }
     // MARK: - Pagination
     private let defaultPageSize = 20
-    private let defaultPrefetchBuffer = 1
-//    
-//    private var requestOffset: Int {
-//        guard let co = dataContainer else {
+    private var currentPage = 1
+    private var totalPages = 0
+    
+//    private var requestNewPage: Int {
+//        guard let co = gamesDataContainer else {
 //            return 0
 //        }
-//        let newOffset = co.offset + defaultPageSize
-//        return newOffset >= co.total ? co.offset : newOffset
+//        currentPage += 1
+//        return currentPage >= (co.count / 20) ? currentPage - 1 : currentPage
 //    }
-//    private var hasNextPage: Bool {
-//        guard let co = dataContainer else {
-//            return true
-//        }
-//        let newOffset = co.offset + defaultPageSize
-//        return newOffset >= co.total ? false : true
-//    }
+    
+    private var hasNextPage: Bool {
+        guard let co = gamesDataContainer else {
+            return true
+        }
+        
+        if co.count % 20 == 0 {
+            totalPages = co.count  / 20
+            
+        }else {
+            totalPages = (co.count / 20) + 1
+        }
+        
+        currentPage += 1
+        return currentPage >= totalPages ? false : true
+    }
+    
+    func pagination(section: GamesDataSource.Section,index: Int){
+        
+        if hasNextPage && index == dataSource.snapshot().numberOfItems(inSection: section)-1 {
+            
+            switch section {
+            case .alltimeBest:
+                gameRequestManager?.fetchAllTime(page: currentPage)
+            case .alltimeBestMultiplayer:
+                gameRequestManager?.fetchMultiTags(page : currentPage)
+            case .lastyearPopular:
+                gameRequestManager?.fetchBetweenDates(dateFrom: "2022-01-01", dateTo: "2022-12-31", sectionFor: .lastyearPopular, displayableFor: .lastyearPopular, page: currentPage)
+            case .lastmonthReleased:
+                gameRequestManager?.fetchBetweenDates(dateFrom: "2023-01-01", dateTo: Date().dateToString(dateFormat: "yyyy-MM-dd"), sectionFor: .lastmonthReleased, displayableFor: .last30DaysReleased,page: currentPage)
+            }
+        }
+
+    }
+    
 }
 
 extension GamesVM: GameListRequestManagerDelegate {

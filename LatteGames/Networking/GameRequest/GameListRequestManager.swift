@@ -36,9 +36,9 @@ class GameListRequestManager {
         fetchBetweenDates(dateFrom: "2023-01-01", dateTo: Date().dateToString(dateFormat: "yyyy-MM-dd"), sectionFor: .lastmonthReleased, displayableFor: .last30DaysReleased)
     }
     
-    private func fetchAllTime(){
+    func fetchAllTime(page:Int = 1){
         
-        gamesRequestLoader.load(data: []) { [weak self] result in
+        gamesRequestLoader.load(data: [.page(page: page.toString())]) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -52,9 +52,10 @@ class GameListRequestManager {
         }
     }
     
-    private func fetchMultiTags(){
+    func fetchMultiTags(page:Int = 1){
         let multiQuery : [Query] = [.tags("multiplayer"),
-                                    .ordering("ratings_count")]
+                                    .ordering("ratings_count"),
+                                    .page(page: page.toString())]
         gamesRequestLoader.load(data: multiQuery) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -69,9 +70,10 @@ class GameListRequestManager {
         }
     }
     
-    private func fetchBetweenDates(dateFrom: String, dateTo:String, sectionFor: GamesDataSource.Section, displayableFor: GameModelType) {
+    func fetchBetweenDates(dateFrom: String, dateTo:String, sectionFor: GamesDataSource.Section, displayableFor: GameModelType,page: Int = 1) {
         let datesQuery : [Query] = [.ordering("rating_counts"),
-                                    .dates(betweenDates: dateFrom, dateTo)]
+                                    .dates(betweenDates: dateFrom, dateTo),
+                                    .page(page: page.toString())]
         
         gamesRequestLoader.load(data: datesQuery) { [weak self] result in
             switch result {

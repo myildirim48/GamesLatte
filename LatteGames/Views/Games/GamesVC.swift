@@ -81,21 +81,16 @@ extension GamesVC {
         switch collectionView {
         case self.collectionView:
             
-            //TODO -> Pagination
-            
             guard let currentSection = dataSource?.snapshot().sectionIdentifiers[indexPath.section] else { return }
-            
             switch currentSection {
             case .alltimeBest:
-//                gamesViewModel.gameRequestManager.fetchAllTime()
-                print("Alltime best")
-                return
+                gamesViewModel.pagination(section: .alltimeBest, index: indexPath.item)
             case .alltimeBestMultiplayer:
-                print("Alltime best multiplayer")
+                gamesViewModel.pagination(section: .alltimeBestMultiplayer, index: indexPath.item)
             case .lastyearPopular:
-                print("Last year popular")
+                gamesViewModel.pagination(section: .lastyearPopular, index: indexPath.item)
             case .lastmonthReleased:
-                print("Last month Released")
+                gamesViewModel.pagination(section: .lastmonthReleased, index: indexPath.item)
                 
             }
         case searchResultVC.collectionView:
