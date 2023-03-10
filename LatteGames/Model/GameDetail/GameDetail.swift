@@ -41,7 +41,6 @@ struct Publisher: Codable {
 
 struct Genre: Codable,Hashable {
     
-    var id: Int?
     var name: String?
 }
 
