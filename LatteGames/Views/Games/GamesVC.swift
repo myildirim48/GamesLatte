@@ -39,7 +39,6 @@ class GamesVC: UICollectionViewController {
         configureCollectionView()
         configureSearch()
         
-//        let dataSource = configureDataSource(for: collectionView)
         dataSource = configureDataSource(for: collectionView)
         gamesViewModel.dataSource = dataSource
         gamesViewModel.errorHandler = self
@@ -51,11 +50,8 @@ class GamesVC: UICollectionViewController {
     }
     
     private func configureCollectionView(){
-//        view.addSubview(collectionView)
-//        collectionView.setCollectionViewLayout(UICollectionViewLayoutGenerator.resourcesCollectionViewLayout(), animated: false)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(GameCell.self, forCellWithReuseIdentifier: GameCell.reuseId)
-        collectionView.register(LoaderReusableView.self, forSupplementaryViewOfKind: LoaderReusableView.elementKind, withReuseIdentifier: LoaderReusableView.reuseIdentifier)
         collectionView.register(TitleReusableView.self, forSupplementaryViewOfKind: TitleReusableView.elementKind, withReuseIdentifier: TitleReusableView.reuseIdentifier)
     }
     
@@ -118,17 +114,14 @@ extension GamesVC {
         let datasource = GamesDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCell.reuseId, for: indexPath) as! GameCell
             cell.gameData = itemIdentifier
+            cell.favoritesButton.isSelected = self.environment.store.viewContext.hasPersistenceId(for: itemIdentifier)
+            cell.delegate = self
             return cell
         }
         
         datasource.supplementaryViewProvider = {
             (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
             switch kind {
-            case LoaderReusableView.elementKind:
-            
-                let loaderSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoaderReusableView.reuseIdentifier, for: indexPath) as! LoaderReusableView
-                return loaderSupplementary
-            
             case TitleReusableView.elementKind:
             
                 let titleSupplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleReusableView.reuseIdentifier, for: indexPath) as! TitleReusableView
@@ -148,9 +141,25 @@ extension GamesVC {
         return datasource
     }
 }
-
+//MARK: - Error Handlers
 extension GamesVC : GamesViewModelDelegate,SearchResultVMErrorHandler {
     func viewModelDidReceiveError(error: UserFriendlyError) {
         presentAlertWithError(message: error) { _ in }
     }
 }
+
+//MARK: - HeroCell Delegate
+extension GamesVC : GameCellDelegate {
+    func gameCellFavoriteButtonTapped(cell: GameCell) {
+        guard let game = cell.gameData else { return }
+        let imageData = cell.imageView.image?.pngData()
+        environment.store.toggleStorage(for: game, with: imageData,completion: {_ in})
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
+    }
+}
+
+

@@ -17,7 +17,6 @@ enum GameModelType:Codable {
 
 struct DisplayableResource {
  
-    #warning("????????")
     
     let type : GameModelType
     let name: String?

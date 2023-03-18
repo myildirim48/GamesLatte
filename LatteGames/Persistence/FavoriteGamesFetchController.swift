@@ -22,7 +22,6 @@ final class FavoriteGamesFetchController: NSObject {
     lazy var fetchedResultsController: NSFetchedResultsController<GameObject> = {
         let request: NSFetchRequest<GameObject> = GameObject.fetchRequest()
         request.sortDescriptors = GameObject.defaultSortDescriptor
-        request.relationshipKeyPathsForPrefetching = ["image","genres"]
         request.returnsObjectsAsFaults = false
         request.fetchBatchSize = 0
 

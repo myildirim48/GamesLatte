@@ -13,11 +13,11 @@ struct GameDataModelResult: Codable {
     let name: String
     let released: String?
     let backgroundImage: String?
-    let metacritic: Int
+    let metacritic: Int?
     let id: Int
-    let rating: Double
+    let rating: Double?
     let genres: [Genre]?
-    let suggestionsCount: Int
+    let suggestionsCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case name,released,metacritic,id,genres,rating

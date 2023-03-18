@@ -41,12 +41,8 @@ class GameCell: UICollectionViewCell {
     weak var delegate: GameCellDelegate?
     
     @objc func favoritesButtonTapped(_ sender: UIButton){
-//        guard let delegate = delegate else { return }
-        //        delegate.gameCellFavoriteButtonTapped(cell: self)
-        
-//        UIView.transition(with: favoritesButton, duration: 0.25,options: .transitionCrossDissolve) {
-//            self.favoritesButton.isSelected = !self.favoritesButton.isSelected
-//        }
+        guard let delegate = delegate else { return }
+                delegate.gameCellFavoriteButtonTapped(cell: self)
     }
     
     var gameData : DisplayableResource? {
@@ -59,7 +55,6 @@ class GameCell: UICollectionViewCell {
     
     private func update() {
         guard let gameData = gameData else {
-            #warning("present Alert there is no data for cell")
             return
         }
         
@@ -109,10 +104,7 @@ class GameCell: UICollectionViewCell {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         favoritesButton.addTarget(self, action: #selector(self.favoritesButtonTapped(_:)), for: .touchUpInside)
-        
-//        imageView.clipsToBounds = true
-//        imageView.contentMode = .scaleAspectFill
-        
+
         let innerSpace = CGFloat(8)
         let outerSpace = CGFloat(20)
         
@@ -124,7 +116,7 @@ class GameCell: UICollectionViewCell {
             
             nameLabel.topAnchor.constraint(equalTo: topAnchor,constant: innerSpace/2),
             nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,constant: innerSpace),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: innerSpace),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -outerSpace),
             
             genresLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant: innerSpace/2),
             genresLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74A779A329C5A4360050E903 /* LatteGames.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74A779A129C5A4360050E903 /* LatteGames.xcdatamodeld */; };
 		74AFAB8329ACAAE500413BD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */; };
 		74AFAB8529ACAAE500413BD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */; };
-		74AFAB8D29ACAAE500413BD2 /* LatteGames.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */; };
 		74AFAB8F29ACAAE500413BD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */; };
 		74AFAB9229ACAAE500413BD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AFAB9029ACAAE500413BD2 /* LaunchScreen.storyboard */; };
 		74AFAB9D29ACABAC00413BD2 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB9C29ACABAC00413BD2 /* TabbarController.swift */; };
@@ -56,17 +56,15 @@
 		74B24F2129B63135008704F6 /* ScreenShotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F2029B63135008704F6 /* ScreenShotsCell.swift */; };
 		74B24F2329B87474008704F6 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F2229B87474008704F6 /* Debouncer.swift */; };
 		74B24F2529B88123008704F6 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B24F2429B88123008704F6 /* Int+Ext.swift */; };
-		74CA107829BBA71C0023F781 /* GenreObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA107229BBA71C0023F781 /* GenreObject+CoreDataClass.swift */; };
-		74CA107A29BBA71C0023F781 /* ImageObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA107429BBA71C0023F781 /* ImageObject+CoreDataClass.swift */; };
 		74CA107C29BBA71C0023F781 /* GameObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA107629BBA71C0023F781 /* GameObject+CoreDataClass.swift */; };
 		74CA107F29BBB1B20023F781 /* FavoriteGamesFetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA107E29BBB1B20023F781 /* FavoriteGamesFetchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74A779A229C5A4360050E903 /* LatteGames.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LatteGames.xcdatamodel; sourceTree = "<group>"; };
 		74AFAB7F29ACAAE500413BD2 /* LatteGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LatteGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		74AFAB8C29ACAAE500413BD2 /* LatteGames.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LatteGames.xcdatamodel; sourceTree = "<group>"; };
 		74AFAB8E29ACAAE500413BD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74AFAB9129ACAAE500413BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74AFAB9329ACAAE500413BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,8 +113,6 @@
 		74B24F2029B63135008704F6 /* ScreenShotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotsCell.swift; sourceTree = "<group>"; };
 		74B24F2229B87474008704F6 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		74B24F2429B88123008704F6 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
-		74CA107229BBA71C0023F781 /* GenreObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GenreObject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		74CA107429BBA71C0023F781 /* ImageObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		74CA107629BBA71C0023F781 /* GameObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		74CA107E29BBB1B20023F781 /* FavoriteGamesFetchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGamesFetchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,12 +176,10 @@
 		74AFAB9A29ACAB8000413BD2 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */,
-				74AFAB9E29ACABE700413BD2 /* Store.swift */,
-				74CA107229BBA71C0023F781 /* GenreObject+CoreDataClass.swift */,
-				74CA107429BBA71C0023F781 /* ImageObject+CoreDataClass.swift */,
-				74CA107629BBA71C0023F781 /* GameObject+CoreDataClass.swift */,
+				74A779A129C5A4360050E903 /* LatteGames.xcdatamodeld */,
 				74CA107E29BBB1B20023F781 /* FavoriteGamesFetchController.swift */,
+				74CA107629BBA71C0023F781 /* GameObject+CoreDataClass.swift */,
+				74AFAB9E29ACABE700413BD2 /* Store.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -476,10 +470,9 @@
 				74B24EF829ACF70B008704F6 /* UserFriendlyError.swift in Sources */,
 				74B24F1329AE574E008704F6 /* UIViewController+Ext.swift in Sources */,
 				74AFAB8329ACAAE500413BD2 /* AppDelegate.swift in Sources */,
+				74A779A329C5A4360050E903 /* LatteGames.xcdatamodeld in Sources */,
 				74B24F0829AE3823008704F6 /* FavoriteButton.swift in Sources */,
-				74AFAB8D29ACAAE500413BD2 /* LatteGames.xcdatamodeld in Sources */,
 				74CA107F29BBB1B20023F781 /* FavoriteGamesFetchController.swift in Sources */,
-				74CA107829BBA71C0023F781 /* GenreObject+CoreDataClass.swift in Sources */,
 				74B24F0029ADFBE3008704F6 /* UIView+Ext.swift in Sources */,
 				74B24F0629ADFDD3008704F6 /* Theme.swift in Sources */,
 				74B24EEC29ACF11E008704F6 /* GameRequest.swift in Sources */,
@@ -503,7 +496,6 @@
 				74AFAB8529ACAAE500413BD2 /* SceneDelegate.swift in Sources */,
 				74AFABC229ACDC1C00413BD2 /* GameDetail.swift in Sources */,
 				74B24EF329ACF38A008704F6 /* DataSource+Snapshots.swift in Sources */,
-				74CA107A29BBA71C0023F781 /* ImageObject+CoreDataClass.swift in Sources */,
 				74B24F0F29AE4623008704F6 /* SearchReusableView.swift in Sources */,
 				74B24F1529AF7B51008704F6 /* String+Ext.swift in Sources */,
 				74AFABB429ACBC9300413BD2 /* DetailVC.swift in Sources */,
@@ -724,12 +716,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		74AFAB8B29ACAAE500413BD2 /* LatteGames.xcdatamodeld */ = {
+		74A779A129C5A4360050E903 /* LatteGames.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				74AFAB8C29ACAAE500413BD2 /* LatteGames.xcdatamodel */,
+				74A779A229C5A4360050E903 /* LatteGames.xcdatamodel */,
 			);
-			currentVersion = 74AFAB8C29ACAAE500413BD2 /* LatteGames.xcdatamodel */;
+			currentVersion = 74A779A229C5A4360050E903 /* LatteGames.xcdatamodel */;
 			path = LatteGames.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
