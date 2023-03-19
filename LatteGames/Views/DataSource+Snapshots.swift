@@ -17,8 +17,6 @@ class SearchDataSource: UICollectionViewDiffableDataSource<SearchDataSource.Sect
     
 }
 
-
-
 typealias GamesSnapshot = NSDiffableDataSourceSnapshot<GamesDataSource.Section, DisplayableResource>
 
 class GamesDataSource: UICollectionViewDiffableDataSource<GamesDataSource.Section, DisplayableResource> {

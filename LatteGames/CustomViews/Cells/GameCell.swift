@@ -65,15 +65,20 @@ class GameCell: UICollectionViewCell {
         suggestionLabel.text = String(gameData.suggestionsCount ?? 0)
         
         activityIndicator.startAnimating()
-        DispatchQueue.main.async {
-            Task {
-                self.imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
-        self.activityIndicator.stopAnimating()
+        
+        if let imgData = gameData.imageData {
+            imageView.image = UIImage(data: imgData)
+            self.activityIndicator.stopAnimating()
+        }else {
+            DispatchQueue.main.async {
+                Task {
+                    self.imageView.image = await ImageFetcher.shared.downloadImage(from: gameData.backgroundImage ?? "")
+            self.activityIndicator.stopAnimating()
+                }
+                
             }
-            
         }
 
-       
     }
     
     private func configure() {

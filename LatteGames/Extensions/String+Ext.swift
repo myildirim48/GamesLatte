@@ -15,4 +15,8 @@ extension String {
         dateFormatter.string(from: date!)
         return date ?? .now
     }
+    
+    func toGenresArray() -> [Genre] {
+        return [Genre(name: self)]
+    }
 }

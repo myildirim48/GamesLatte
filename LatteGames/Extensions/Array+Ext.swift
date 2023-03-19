@@ -18,3 +18,9 @@ extension Array where Element:Displayable {
 }
     
 
+extension Array where Element == GameObject {
+    func toDisplayableResource() -> Array<DisplayableResource>? {
+        self.isEmpty ? nil : self.map { DisplayableResource(managedObject: $0) }
+    }
+}
+

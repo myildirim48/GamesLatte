@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7434DF4C29C6F18C00F688AD /* StateChangeMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434DF4B29C6F18C00F688AD /* StateChangeMessage.swift */; };
 		74A779A329C5A4360050E903 /* LatteGames.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74A779A129C5A4360050E903 /* LatteGames.xcdatamodeld */; };
 		74AFAB8329ACAAE500413BD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */; };
 		74AFAB8529ACAAE500413BD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AFAB8429ACAAE500413BD2 /* SceneDelegate.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7434DF4B29C6F18C00F688AD /* StateChangeMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateChangeMessage.swift; sourceTree = "<group>"; };
 		74A779A229C5A4360050E903 /* LatteGames.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LatteGames.xcdatamodel; sourceTree = "<group>"; };
 		74AFAB7F29ACAAE500413BD2 /* LatteGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LatteGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74AFAB8229ACAAE500413BD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				74B24EF729ACF70B008704F6 /* UserFriendlyError.swift */,
+				7434DF4B29C6F18C00F688AD /* StateChangeMessage.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74B24EE329ACDF0B008704F6 /* Query.swift in Sources */,
+				7434DF4C29C6F18C00F688AD /* StateChangeMessage.swift in Sources */,
 				74B24EEE29ACF124008704F6 /* GameListRequestManager.swift in Sources */,
 				74B24EF129ACF267008704F6 /* Array+Ext.swift in Sources */,
 				74AFABAB29ACBC5A00413BD2 /* FavoritesVC.swift in Sources */,
