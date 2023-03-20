@@ -16,6 +16,8 @@ class GamesVC: UICollectionViewController {
     var searchController: UISearchController!
     var searchResultVC: SearchResultVC!
     
+    
+    
     private var dataSource : GamesDataSource?
     
     required init?(coder:NSCoder) {
@@ -45,11 +47,6 @@ class GamesVC: UICollectionViewController {
         let searchDataSource = configureDataSource(for: searchResultVC.collectionView)
         searchViewModel.configureDataSource(with: searchDataSource)
         searchViewModel.errorHandler = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.reloadData()
     }
     
     private func configureCollectionView(){
@@ -106,6 +103,7 @@ extension GamesVC {
         let detailVC = DetailVC(environemnt: environment)
         detailVC.selectedGameID = selectedGameID?.id
         detailVC.selectedDisplableResource = selectedGameID
+        detailVC.delegate = self
         
         let navController = UINavigationController(rootViewController: detailVC)
         present(navController, animated: true)
@@ -159,6 +157,16 @@ extension GamesVC : GameCellDelegate {
         let imageData = cell.imageView.image?.pngData()
         environment.store.toggleStorage(for: game, with: imageData,completion: {_ in})
         
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+}
+
+//MARK: - GameDetail Delegate
+extension GamesVC: DetailVCDelegate{
+    func favoriteListUpdated() {
+        print("pompik")
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

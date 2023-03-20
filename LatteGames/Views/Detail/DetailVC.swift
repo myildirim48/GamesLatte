@@ -6,6 +6,11 @@
 //
 
 import UIKit
+
+protocol DetailVCDelegate:NSObject {
+    func favoriteListUpdated()
+}
+
 class DetailVC: UIViewController {
     
     var selectedGameID: Int?
@@ -17,6 +22,8 @@ class DetailVC: UIViewController {
             favoriteButton.isSelected = self.environment.store.viewContext.hasPersistenceId(for:selectedDispRes)
         }
     }
+    
+    weak var delegate: DetailVCDelegate?
     
     private let environment: Environment!
     private var detailVM: DetailVM!
@@ -86,13 +93,14 @@ class DetailVC: UIViewController {
         if favoriteButton.isSelected == false {
             presentAlertWithStateChange(message: .deleteGame(with: game)) {_ in
                 guard let environment = self.environment else { return }
-                 environment.store.toggleStorage(for: game, completion: {_ in})
+                environment.store.toggleStorage(for: game, completion: {_ in})
+                self.delegate?.favoriteListUpdated()
             }
         }else {
             let imageData = gameImageView.image?.pngData()
             environment.store.toggleStorage(for: game, with: imageData,completion: {_ in})
+            delegate?.favoriteListUpdated()
         }
-        
     }
     
     private func update(with selectedGame: GameDetail?){
