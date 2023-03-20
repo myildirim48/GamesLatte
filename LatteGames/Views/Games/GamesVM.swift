@@ -32,8 +32,8 @@ class GamesVM: NSObject {
         gameRequestManager?.requestAll()
     }
     
-    func item(for indexPath: IndexPath) -> Int? {
-        dataSource.itemIdentifier(for: indexPath)?.id
+    func item(for indexPath: IndexPath) -> DisplayableResource? {
+        dataSource.itemIdentifier(for: indexPath)
     }
     
     func applyDatasourceChange(section: GamesDataSource.Section, resources: [DisplayableResource]){
@@ -50,14 +50,6 @@ class GamesVM: NSObject {
     private let defaultPageSize = 20
     private var currentPage = 1
     private var totalPages = 0
-    
-//    private var requestNewPage: Int {
-//        guard let co = gamesDataContainer else {
-//            return 0
-//        }
-//        currentPage += 1
-//        return currentPage >= (co.count / 20) ? currentPage - 1 : currentPage
-//    }
     
     private var hasNextPage: Bool {
         guard let co = gamesDataContainer else {
@@ -87,7 +79,7 @@ class GamesVM: NSObject {
             case .lastyearPopular:
                 gameRequestManager?.fetchBetweenDates(dateFrom: "2022-01-01", dateTo: "2022-12-31", sectionFor: .lastyearPopular, displayableFor: .lastyearPopular, page: currentPage)
             case .lastmonthReleased:
-                gameRequestManager?.fetchBetweenDates(dateFrom: "2023-01-01", dateTo: Date().dateToString(dateFormat: "yyyy-MM-dd"), sectionFor: .lastmonthReleased, displayableFor: .last30DaysReleased,page: currentPage)
+                gameRequestManager?.fetchBetweenDates(dateFrom: (Date()-30).dateToString(dateFormat: "yyyy-MM-dd"), dateTo: Date().dateToString(dateFormat: "yyyy-MM-dd"), sectionFor: .lastmonthReleased, displayableFor: .last30DaysReleased,page: currentPage)
             }
         }
 
@@ -101,7 +93,6 @@ extension GamesVM: GameListRequestManagerDelegate {
         gamesDataContainer = dataContainer
     }
     
-
     func requestManagerDidReceiveError(userFriendlyError: UserFriendlyError) {
         errorHandler?.viewModelDidReceiveError(error: userFriendlyError)
     }

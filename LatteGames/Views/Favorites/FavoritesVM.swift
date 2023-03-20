@@ -33,8 +33,7 @@ class FavoriteVM: NSObject {
     }
     
     func item(for indexPath: IndexPath) -> DisplayableResource? {
-        let game =  dataSource?.itemIdentifier(for: indexPath)
-        return game
+        dataSource?.itemIdentifier(for: indexPath)
     }
     
     private func configureDataSource() {

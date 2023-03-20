@@ -11,7 +11,12 @@ class DetailVC: UIViewController {
     var selectedGameID: Int?
     
     var selectedGame: GameDetail?
-    
+    var selectedDisplableResource: DisplayableResource? {
+        didSet {
+            guard let selectedDispRes = selectedDisplableResource else { return }
+            favoriteButton.isSelected = self.environment.store.viewContext.hasPersistenceId(for:selectedDispRes)
+        }
+    }
     
     private let environment: Environment!
     private var detailVM: DetailVM!
@@ -23,6 +28,7 @@ class DetailVC: UIViewController {
     let descriptionLabel = LatteLabel(textAligment: .left, font: .init(descriptor: .preferredFontDescriptor(withTextStyle: .body), size: 14))
     
     let favoriteButton = FavoriteButton(frame: .zero)
+
     
     let ratingLabel = LatteLabel(textAligment: .left, font: Theme.fonts.desriptionFont,textColor: .secondaryLabel.withAlphaComponent(0.75))
     let ratingLabelImage = LatteImageView(systemImageName: "star.fill",tintColor: .systemYellow)
@@ -75,6 +81,20 @@ class DetailVC: UIViewController {
         }
     }
     
+    @objc func favoritesButtonTapped(_ sender: UIButton){
+        guard let game = selectedDisplableResource else { return }
+        if favoriteButton.isSelected == false {
+            presentAlertWithStateChange(message: .deleteGame(with: game)) {_ in
+                guard let environment = self.environment else { return }
+                 environment.store.toggleStorage(for: game, completion: {_ in})
+            }
+        }else {
+            let imageData = gameImageView.image?.pngData()
+            environment.store.toggleStorage(for: game, with: imageData,completion: {_ in})
+        }
+        
+    }
+    
     private func update(with selectedGame: GameDetail?){
         guard let selectedGame = selectedGame else {
             return
@@ -107,7 +127,7 @@ class DetailVC: UIViewController {
                 break
             }
         })
-        
+
         configureWebsiteLink()
     }
     
@@ -128,7 +148,6 @@ class DetailVC: UIViewController {
     
     private func configureCollectionView(){
         imageCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewLayoutGenerator.generateLayoutForStyle(.paginated))
-//        imageCollectionView.setCollectionViewLayout( animated: false)
         imageCollectionView.register(ScreenShotsCell.self, forCellWithReuseIdentifier: ScreenShotsCell.reuseId)
         imageCollectionView.register(LoaderReusableView.self, forSupplementaryViewOfKind: LoaderReusableView.elementKind, withReuseIdentifier: LoaderReusableView.reuseIdentifier)
     }
@@ -153,6 +172,8 @@ class DetailVC: UIViewController {
     }
     #warning("here is hard coded")
     private func configure(){
+        
+        favoriteButton.addTarget(self, action: #selector(self.favoritesButtonTapped(_:)), for: .touchUpInside)
         
         contenView.addSubviews(gameImageView,nameLabel,genresLabel,ratingLabel,ratingLabelImage,releasedDateLabel,releasedDateLabelImage,publishersLabel,playtimeImage,playtimeLabel,favoriteButton,recommendationView,homePageImage,homePagelabel,descriptionLabel,playableLabel,playablePlatformImage,imageCollectionView)
         
@@ -278,6 +299,18 @@ extension DetailVC: DetailViewModelDelegate {
     func viewModelDidReceiveError(error: UserFriendlyError) {
         presentAlertWithError(message: error) { _ in}
     }
-    
-    
+
+//    func viewModelDidTogglePersistence(with status: Bool) {
+//        animateFavoriteButtonSelection()
+//    }
+//
+//    func animateFavoriteButtonSelection(){
+//        UIView.transition(with: favoriteButton, duration: 0.25,options: .transitionCrossDissolve) {
+//            self.favoriteButton.isSelected = !self.favoriteButton.isSelected
+//        }
+//    }
+//    
+//    func presentPersistanceAlert() {
+//        
+//    }
 }

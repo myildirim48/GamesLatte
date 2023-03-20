@@ -18,7 +18,7 @@ class DetailVM: NSObject {
     
     let environment: Environment!
     
-    var dataSource: GamesImagesDataSource! = nil
+    var dataSource: GamesImagesDataSource!
     var detailViewRequestManager: GameDetailRequestManager?
     
     weak var delegate: DetailViewModelDelegate?
@@ -49,7 +49,7 @@ class DetailVM: NSObject {
 
 extension DetailVM: GameDetailRequestManagerDelegate {
     func gameDetailRequestManagerDidRecieveScreenShots(for ScreenShots: [ScreenshotResult]) {
-//        self.screenShotsVoid(ScreenShots)
+//        self.screenShotsVoid(ScreenShots) 
         applyDatasourChange(resource: ScreenShots)
     }
     

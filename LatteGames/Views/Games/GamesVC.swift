@@ -27,10 +27,9 @@ class GamesVC: UICollectionViewController {
     required init(environemnt: Environment, layout: UICollectionViewLayout) {
         self.environment = environemnt
         super.init(collectionViewLayout: layout)
-   
-
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         gamesViewModel = GamesVM(environment: environment)
@@ -46,7 +45,11 @@ class GamesVC: UICollectionViewController {
         let searchDataSource = configureDataSource(for: searchResultVC.collectionView)
         searchViewModel.configureDataSource(with: searchDataSource)
         searchViewModel.errorHandler = self
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
     }
     
     private func configureCollectionView(){
@@ -101,7 +104,8 @@ extension GamesVC {
         let selectedGameID = gamesViewModel.item(for: indexPath)
         
         let detailVC = DetailVC(environemnt: environment)
-        detailVC.selectedGameID = selectedGameID
+        detailVC.selectedGameID = selectedGameID?.id
+        detailVC.selectedDisplableResource = selectedGameID
         
         let navController = UINavigationController(rootViewController: detailVC)
         present(navController, animated: true)
@@ -113,8 +117,8 @@ extension GamesVC {
         
         let datasource = GamesDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCell.reuseId, for: indexPath) as! GameCell
-            cell.gameData = itemIdentifier
             cell.favoritesButton.isSelected = self.environment.store.viewContext.hasPersistenceId(for: itemIdentifier)
+            cell.gameData = itemIdentifier
             cell.delegate = self
             return cell
         }
@@ -158,7 +162,6 @@ extension GamesVC : GameCellDelegate {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-        
     }
 }
 

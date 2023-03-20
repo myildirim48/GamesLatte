@@ -54,7 +54,14 @@ class FavoritesVC: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedGame = favoritesViewModel.
+        let selectedGame = favoritesViewModel.item(for: indexPath)
+        
+        let detailVC = DetailVC(environemnt: environment)
+        detailVC.selectedGameID = selectedGame?.id
+        detailVC.selectedDisplableResource = selectedGame
+        
+        let navController = UINavigationController(rootViewController: detailVC)
+        present(navController, animated: true)
     }
 }
 
@@ -64,7 +71,9 @@ extension FavoritesVC: GameCellDelegate {
         guard let game = cell.gameData else { return }
         presentAlertWithStateChange(message: .deleteGame(with: game)) { [weak self] status in
             guard let self = self, let environment = self.environment else { return }
-            if status { environment.store.toggleStorage(for: game, completion: {_ in})}
+            if status { environment.store.toggleStorage(for: game, completion: {_ in})} else {
+                cell.favoritesButton.isSelected = true
+            }
         }
     }
 }

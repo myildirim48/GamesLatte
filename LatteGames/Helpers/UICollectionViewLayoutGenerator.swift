@@ -25,6 +25,7 @@ struct UICollectionViewLayoutGenerator {
         var heightForViewKind: CGFloat {
             switch self {
             case .paginated:
+//                return CGFloat(1  .0)
                 return CGFloat(60.0)
             case .search:
                 return CGFloat(35.0)
@@ -78,10 +79,14 @@ struct UICollectionViewLayoutGenerator {
                 section.orthogonalScrollingBehavior = .continuous
             }
             
+            if style == .favorites {
+                section.orthogonalScrollingBehavior = .none
+            }
+            
             section.interGroupSpacing = 15
             section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 5, bottom: 10, trailing: 5)
             section.interGroupSpacing = 20
-            section.orthogonalScrollingBehavior = .none
+            
             
             if style != .favorites {
                 let suplemantaryItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(style.heightForViewKind))
