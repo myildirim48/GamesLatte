@@ -14,4 +14,4 @@ This is my Swift-UIKit example app where i used Core-Data,MVVM Design Pattern an
 - API : [Rawg.ip](https://rawg.io/apidocs)        
 
  #### Gif
- ![](https://github.com/myildirim48/MarvelApp-Mvvm-Programmatic/blob/main/Marvel-App/MarvelApp.gif?raw=true)
+ ![](https://github.com/myildirim48/GamesLatte/blob/main/GamesLatte.gif?raw=true)
